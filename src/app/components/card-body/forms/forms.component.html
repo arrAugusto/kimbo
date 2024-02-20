@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div class="col s12 offset-s1">
+            <h4 class="header">Ingresos de mercaderías</h4>
+            <div class="card horizontal">
+                <div class="card-stacked center-align">
+                    <div class="card-content">
+                        <div class="row">
+                            <form class="col s12">
+                                <div class="row">
+                                    <div *ngFor="let input of inputs" class="input-field col {{ input.size }}">
+                                        <i class="material-icons prefix">{{ input.icon }}</i>
+                                        <input [id]="input.id" type="{{ input.type }}" class="validate" [required]="input.required" [disabled]="input.disabled" [pattern]="input.pattern">
+                                        <label [for]="input.id">{{ input.label }}</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-action center-align">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                          </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+        
+  

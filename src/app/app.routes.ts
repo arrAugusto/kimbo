@@ -1,10 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { FormsComponent } from './components/card-body/forms/forms.component';
 
 export const routes: Routes = [
-  { path: 'hello', component: NavBarComponent },
-  // Otras rutas si las tienes
+  { path: 'forms', component: FormsComponent },
+
 ];
 
 @NgModule({
