@@ -7,6 +7,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { FormsComponent } from './components/forms/forms.component';
 import { CardsComponent } from './components/cards/cards.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CardsComponent } from './components/cards/cards.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule, // Agrega RouterModule a los imports
+    RouterModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
