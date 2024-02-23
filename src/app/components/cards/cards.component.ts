@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CardsService } from '../services/servicesCards/CardsService';
+import { FormsCards } from '../models/Cards/GetCards';
 
 @Component({
   selector: 'app-cards',
@@ -7,12 +8,17 @@ import { CardsService } from '../services/servicesCards/CardsService';
   styleUrls: ['./cards.component.css'],
 })
 export class CardsComponent implements OnInit {
-
-  constructor(private cardsService: CardsService) {}
+  forms: FormsCards[] = [];
+  constructor(private cardsService: CardsService) {
+  }
 
   ngOnInit() {
     this.cardsService.getForms().subscribe(
       (data) => {
+        this.forms = data;
+        
+        console.log(this.forms[0].ayuda);
+        
         // Manejar los datos de los formularios aquí
         console.log('Datos de formularios:', data);
       },
@@ -22,7 +28,7 @@ export class CardsComponent implements OnInit {
       }
     );
   }
-
+  //
   menus = [
     { title: 'Ingresos', description: 'Realiza ingresos.', link: '/ingresos' },
     { title: 'Gastos', description: 'Registra gastos.', link: '/gastos' },
