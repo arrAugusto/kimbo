@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CardsService } from '../services/servicesCards/CardsService';
 import { FormsCards } from '../models/Cards/GetCards';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cards',
@@ -9,7 +10,7 @@ import { FormsCards } from '../models/Cards/GetCards';
 })
 export class CardsComponent implements OnInit {
   forms: FormsCards[] = [];
-  constructor(private cardsService: CardsService) {
+  constructor(private cardsService: CardsService, private router: Router) {
   }
 
   ngOnInit() {
@@ -29,10 +30,8 @@ export class CardsComponent implements OnInit {
     );
   }
   //
-  menus = [
-    { title: 'Ingresos', description: 'Realiza ingresos.', link: '/ingresos' },
-    { title: 'Gastos', description: 'Registra gastos.', link: '/gastos' },
-    { title: 'Balance', description: 'Ver balance financiero.', link: '/balance' },
-  ];
-
+  onButtonClick(id: string) {
+    this.router.navigate(['/forms', id]);
+  }
+  
 }

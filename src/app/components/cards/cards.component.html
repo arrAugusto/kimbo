@@ -9,7 +9,7 @@
                 <p>{{ form.ayuda }}</p>
               </div>
               <div class="card-action">
-                <a [href]="form.url" class="btn">{{ form.description }}</a>
+                <a class="btn" (click)="onButtonClick(form.status)">{{ form.description }}</a>
               </div>
             </div>
           </div>

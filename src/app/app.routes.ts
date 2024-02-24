@@ -4,9 +4,8 @@ import { FormsComponent } from './components/forms/forms.component';
 import { CardsComponent } from './components/cards/cards.component';
 
 export const routes: Routes = [
-  { path: 'forms', component: FormsComponent },
+  { path: 'forms/:id', component: FormsComponent },
   { path: 'menu', component: CardsComponent },
-
 ];
 
 @NgModule({

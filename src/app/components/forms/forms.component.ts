@@ -1,11 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-forms',
   templateUrl: './forms.component.html',
   styleUrl: './forms.component.css',
 })
-export class FormsComponent {
+export class FormsComponent implements OnInit {
+  
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const id = params['id']; // Aquí obtienes el valor del parámetro 'id'
+      console.log(id); // Haz lo que necesites con el valor del parámetro
+    });
+  }
   inputs = [
     {
       id: 'icon_telephone',
