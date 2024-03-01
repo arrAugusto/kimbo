@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routes';
 import { NavBarComponent } from './generated/nav-bar/nav-bar.component';
 import { FormsComponent } from './components/forms/forms.component';
-import { CardsComponent } from './components/cards/cards.component';
+import { CardsComponent } from './components/menu/cards.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SideBarComponent } from './generated/side-bar/side-bar.component';
 

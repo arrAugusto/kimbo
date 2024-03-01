@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CardsService } from '../../services/servicesCards/CardsService';
 import { FormsCards } from '../../models/Cards/GetCards';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cards',
@@ -10,16 +10,23 @@ import { Router } from '@angular/router';
 })
 export class CardsComponent implements OnInit {
   forms: FormsCards[] = [];
-  constructor(private cardsService: CardsService, private router: Router) {
-  }
+  id: string = "";
+
+  constructor(private cardsService: CardsService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.cardsService.getForms().subscribe(
+    this.forms = [];
+    // Obtener el parámetro 'id' de la URL
+    this.route.params.subscribe((params) => {
+      this.id = params['id'];
+      // Aquí puedes utilizar el valor de 'id' como necesites
+    });
+    this.cardsService.getForms(this.id).subscribe(
       (data) => {
         this.forms = data;
-        
-        console.log(this.forms[0].ayuda);
-        
+
+        console.log(this.forms);
+
         // Manejar los datos de los formularios aquí
         console.log('Datos de formularios:', data);
       },
@@ -33,5 +40,4 @@ export class CardsComponent implements OnInit {
   onButtonClick(id: string) {
     this.router.navigate(['/forms', id]);
   }
-  
 }

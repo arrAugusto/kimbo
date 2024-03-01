@@ -10,7 +10,8 @@ import { FormsCards } from '../../models/Cards/GetCards'; // Importa el modelo F
 export class CardsService {
   constructor(private http: HttpClient) {}
 
-  getForms(): Observable<FormsCards[]> { // Cambia el tipo de retorno aquí
-    return this.http.post<[]>(environment.apiUrl + "forms/getForms", {}); // Cambia el tipo de retorno aquí
+  getForms(id: string): Observable<FormsCards[]> {
+    // Pasar el 'id' como parámetro en la solicitud HTTP
+    return this.http.get<FormsCards[]>(`${environment.apiUrl}forms/getForms/${id}`);
   }
 }
