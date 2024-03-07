@@ -29,8 +29,7 @@ export class SideBarComponent implements OnInit {
       }
     );
   }
-  onClick(id: string){
-    this.router.navigate(['/menu', id]);
-    location.reload(); // Recargar la página completa
+  onClick(id: string) {
+    this.router.navigate(['menu', id]);
   }
 }
