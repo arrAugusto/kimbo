@@ -8,6 +8,7 @@ import { FormsComponent } from './components/forms/forms.component';
 import { CardsComponent } from './components/menu/cards.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SideBarComponent } from './generated/side-bar/side-bar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,9 @@ import { SideBarComponent } from './generated/side-bar/side-bar.component';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule, // Agrega FormsModule si usas formularios template-driven
+    ReactiveFormsModule, // Agrega ReactiveFormsModule si usas formularios reactivos
   ],
   providers: [],
   bootstrap: [AppComponent],

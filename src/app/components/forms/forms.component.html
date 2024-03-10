@@ -6,11 +6,17 @@
                 <div class="card-stacked center-align">
                     <div class="card-content">
                         <div class="row">
-                            <form class="col s12">
+                            <form [formGroup]="formularioForm" class="col s12">
                                 <div class="row">
                                     <div *ngFor="let input of inputs" class="input-field col {{ input.size }}">
                                         <i class="material-icons prefix">{{ input.icon }}</i>
-                                        <input [id]="input.id" type="{{ input.type }}" class="validate" [required]="input.required" [disabled]="input.disabled" [pattern]="input.pattern">
+
+                                        <input [id]="input.id" type="{{ input.type }}" class="validate"  
+
+                                        [formControlName]="input.tag"
+
+                                        [required]="input.required" [disabled]="input.disabled" [pattern]="input.pattern">
+                                        
                                         <label [for]="input.id">{{ input.label }}</label>
                                     </div>
                                 </div>

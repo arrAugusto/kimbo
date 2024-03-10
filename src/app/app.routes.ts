@@ -4,7 +4,7 @@ import { FormsComponent } from './components/forms/forms.component';
 import { CardsComponent } from './components/menu/cards.component';
 
 export const routes: Routes = [
-  { path: 'menu/:id/forms/:id', component: FormsComponent },
+  { path: 'menu/:id/forms/:form', component: FormsComponent },
   { path: 'menu/:id', component: CardsComponent },
 ];
 

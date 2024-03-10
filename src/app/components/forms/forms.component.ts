@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IngresoBodega } from '../../models/Ingresos/IngresoBodega';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-forms',
@@ -7,19 +9,53 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './forms.component.css',
 })
 export class FormsComponent implements OnInit {
-  
-  constructor(private route: ActivatedRoute) { }
+  formularioForm: FormGroup;
+  ingreso: IngresoBodega;
+
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
+    this.formularioForm = this.formBuilder.group({});
+    // Inicialización del objeto ingreso con valores vacíos
+    this.ingreso = {
+      idTransaccion: '',
+      idUsuario: '',
+      idNit: '',
+      id_images: '',
+      fecha_garita: '',
+      fecha_bodega: '',
+      fecha_operativa: '',
+      codigo_transaccion: '',
+      documento: '',
+      codigo_QR: '',
+      total_bultos: '',
+      area: '',
+      referencia: '',
+      documento_top_pay: '',
+      document: '',
+      nombre: '',
+      boleta_de_pago: '',
+      comments: '',
+      auth_transaction: '',
+    };
+  }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const id = params['id']; // Aquí obtienes el valor del parámetro 'id'
       console.log(id); // Haz lo que necesites con el valor del parámetro
     });
+
+    const formControls: { [key: string]: any } = {}; // Definimos un tipo explícito para formControls
+    for (const input of this.inputs) {
+      formControls[input.tag] = [null, Validators.pattern(input.pattern)];
+    }
+    this.formularioForm = this.formBuilder.group(formControls);
   }
+
   inputs = [
     {
       id: 'icon_telephone',
       type: 'tel',
+      tag: 'texPlainTextQR',
       label: 'Codigo QR',
       icon: 'qr_code',
       size: 's12',
@@ -30,9 +66,10 @@ export class FormsComponent implements OnInit {
     {
       id: 'icon_prefix',
       type: 'text',
+      tag: 'nit',
       label: 'Nit',
       icon: 'input',
-      size: 's4',
+      size: 's6',
       required: true,
       disabled: false,
       pattern: '[0-9]{3}', // regex para permitir solo números de 3 dígitos
@@ -40,9 +77,10 @@ export class FormsComponent implements OnInit {
     {
       id: 'icon_prefix',
       type: 'text',
+      tag: 'numeroDoc',
       label: 'Núm de documento',
       icon: 'input',
-      size: 's4',
+      size: 's6',
       required: true,
       disabled: false,
       pattern: '[0-9]{3}', // regex para permitir solo números de 3 dígitos
@@ -50,9 +88,10 @@ export class FormsComponent implements OnInit {
     {
       id: 'icon_prefix',
       type: 'text',
-      label: 'Bultos',
+      tag: 'bultos',
+      label: 'Cantidad de bultos',
       icon: 'input',
-      size: 's4',
+      size: 's6',
       required: true,
       disabled: false,
       pattern: '[0-9]{3}', // regex para permitir solo números de 3 dígitos
@@ -60,23 +99,17 @@ export class FormsComponent implements OnInit {
     {
       id: 'icon_prefix',
       type: 'text',
-      label: 'CIF',
+      tag: 'montoTotal',
+      label: 'Monto Total',
       icon: 'input',
-      size: 's4',
+      size: 's6',
       required: true,
       disabled: false,
-      pattern: '[0-9]{3}', // regex para permitir solo números de 3 dígitos
+      pattern: '[0-9]+(?:.[0-9]{1,2})?', // regex para permitir números con hasta 2 decimales
     },
-    {
-      id: 'icon_prefix',
-      type: 'text',
-      label: 'Impuestos',
-      icon: 'input',
-      size: 's4',
-      required: true,
-      disabled: false,
-      pattern: '[0-9]{3}', // regex para permitir solo números de 3 dígitos
-    },
-
   ];
+
+  aplicarNewIng() {
+    this.ingreso.idTransaccion = '0623333';
+  }
 }
