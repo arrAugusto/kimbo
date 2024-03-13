@@ -17,24 +17,25 @@ export class FormsComponent implements OnInit {
     // Inicialización del objeto ingreso con valores vacíos
     this.ingreso = {
       idTransaccion: '',
-      idUsuario: '',
+      usuario: '',
       idNit: '',
-      id_images: '',
-      fecha_garita: '',
-      fecha_bodega: '',
-      fecha_operativa: '',
+      idImages: '',
+      fechaGarita: '',
+      fechaBodega: '',
+      fechaOperativa: '',
       codigo_transaccion: '',
       documento: '',
-      codigo_QR: '',
-      total_bultos: '',
+      codigoQR: '',
+      bultos: '',
+      montoTotal: '',
       area: '',
-      referencia: '',
       documento_top_pay: '',
       document: '',
       nombre: '',
       boleta_de_pago: '',
       comments: '',
       auth_transaction: '',
+      canalDigital: '',
     };
   }
 
@@ -55,7 +56,7 @@ export class FormsComponent implements OnInit {
     {
       id: 'icon_telephone',
       type: 'tel',
-      tag: 'texPlainTextQR',
+      tag: 'codigoQR',
       label: 'Codigo QR',
       icon: 'qr_code',
       size: 's12',
@@ -66,7 +67,7 @@ export class FormsComponent implements OnInit {
     {
       id: 'icon_prefix',
       type: 'text',
-      tag: 'nit',
+      tag: 'idNit',
       label: 'Nit',
       icon: 'input',
       size: 's6',
@@ -77,7 +78,7 @@ export class FormsComponent implements OnInit {
     {
       id: 'icon_prefix',
       type: 'text',
-      tag: 'numeroDoc',
+      tag: 'documento',
       label: 'Núm de documento',
       icon: 'input',
       size: 's6',
@@ -110,6 +111,10 @@ export class FormsComponent implements OnInit {
   ];
 
   aplicarNewIng() {
-    this.ingreso.idTransaccion = '0623333';
+    this.inputs.forEach((element) => {
+      this.ingreso[element.tag as keyof IngresoBodega] =
+        this.formularioForm.get(element.tag)?.value;
+    });
+    console.log(this.ingreso);
   }
 }

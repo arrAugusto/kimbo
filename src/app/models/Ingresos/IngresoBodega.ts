@@ -1,21 +1,22 @@
 export interface IngresoBodega {
   idTransaccion: string;
-  idUsuario: string;
+  usuario: string;
   idNit: string;
-  id_images: string;
-  fecha_garita: string;
-  fecha_bodega: string;
-  fecha_operativa: string;
+  idImages: string;
+  fechaGarita: string;
+  fechaBodega: string;
+  fechaOperativa: string;
   codigo_transaccion: string;
   documento: string;
-  codigo_QR: string;
-  total_bultos: string;
+  codigoQR: string;
+  bultos: string;
   area: string;
-  referencia: string;
   documento_top_pay: string;
   document: string;
   nombre: string;
   boleta_de_pago: string;
   comments: string;
   auth_transaction: string;
+  canalDigital: string;
+  montoTotal: string;
 }
