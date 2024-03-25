@@ -39,7 +39,6 @@ export class CardsComponent implements OnInit, OnDestroy {
     // Lógica para cargar los formularios
     this.cardsService.getForms(this.id).subscribe(
       (data) => {
-        console.log('>>>>>>>>>>>>>>>>>');
         // Limpiar la variable forms antes de asignarle los nuevos datos
         this.forms = [];
         this.forms = data;

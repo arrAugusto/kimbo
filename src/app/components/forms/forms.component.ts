@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IngresoBodega } from '../../models/Ingresos/IngresoBodega';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IngresosServices } from '../../services/Ingresos/IngresosServices';
 
 @Component({
   selector: 'app-forms',
@@ -12,7 +13,11 @@ export class FormsComponent implements OnInit {
   formularioForm: FormGroup;
   ingreso: IngresoBodega;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private ingresosServices: IngresosServices
+  ) {
     this.formularioForm = this.formBuilder.group({});
     // Inicialización del objeto ingreso con valores vacíos
     this.ingreso = {
@@ -20,6 +25,7 @@ export class FormsComponent implements OnInit {
       usuario: '',
       idNit: '',
       idImages: '',
+      canalDigital: '',
       fechaGarita: '',
       fechaBodega: '',
       fechaOperativa: '',
@@ -35,7 +41,6 @@ export class FormsComponent implements OnInit {
       boleta_de_pago: '',
       comments: '',
       auth_transaction: '',
-      canalDigital: '',
     };
   }
 
@@ -62,7 +67,7 @@ export class FormsComponent implements OnInit {
       size: 's12',
       required: true,
       disabled: false,
-      pattern: '^[A-Za-z0-9]+$', // regex para permitir solo caracteres alfanuméricos
+      pattern: '^[a-zA-Z0-9]+$', // regex para permitir solo caracteres alfanuméricos
     },
     {
       id: 'icon_prefix',
@@ -73,7 +78,7 @@ export class FormsComponent implements OnInit {
       size: 's6',
       required: true,
       disabled: false,
-      pattern: '[0-9]{3}', // regex para permitir solo números de 3 dígitos
+      pattern: '^[a-zA-Z0-9]+$', // regex para permitir solo números de 3 dígitos
     },
     {
       id: 'icon_prefix',
@@ -84,7 +89,7 @@ export class FormsComponent implements OnInit {
       size: 's6',
       required: true,
       disabled: false,
-      pattern: '[0-9]{3}', // regex para permitir solo números de 3 dígitos
+      pattern: '^[a-zA-Z0-9]+$', // regex para permitir solo números de 3 dígitos
     },
     {
       id: 'icon_prefix',
@@ -95,7 +100,7 @@ export class FormsComponent implements OnInit {
       size: 's6',
       required: true,
       disabled: false,
-      pattern: '[0-9]{3}', // regex para permitir solo números de 3 dígitos
+      pattern: '^[0-9]+$', // regex para permitir solo números de 3 dígitos
     },
     {
       id: 'icon_prefix',
@@ -116,5 +121,24 @@ export class FormsComponent implements OnInit {
         this.formularioForm.get(element.tag)?.value;
     });
     console.log(this.ingreso);
+    var numeroRandom = Math.floor(Math.random() * 9e12) + 1e12;
+    console.log(numeroRandom);
+    this.ingreso.usuario = "1";
+    this.ingreso.canalDigital ="KIMBO_PAGE_WEB"
+    this.ingreso.idTransaccion = numeroRandom.toString();
+    this.ingresosServices.newIngreso(this.ingreso).subscribe(
+      (data) => {
+        // Limpiar la variable forms antes de asignarle los nuevos datos
+
+        console.log(data);
+
+        // Manejar los datos de los formularios aquí
+        console.log('Datos de formularios:', data);
+      },
+      (error) => {
+        // Manejar errores aquí
+        console.error('Error al obtener los formularios:', error);
+      }
+    );
   }
 }
