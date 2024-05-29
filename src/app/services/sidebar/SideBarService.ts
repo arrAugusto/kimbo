@@ -12,6 +12,6 @@ export class SideBarService {
 
   getSideBar(): Observable<SidebarModel[]> {
     // Cambia el tipo de retorno aquí
-    return this.http.post<[]>(environment.apiUrl + 'forms/getSideNav', {}); // Cambia el tipo de retorno aquí
+    return this.http.get<[]>(environment.apiUrl + 'forms/getSideNav', {}); // Cambia el tipo de retorno aquí
   }
 }

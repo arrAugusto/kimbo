@@ -4,4 +4,5 @@ export interface SidebarModel {
     status: string;
     description: string;
     paquete: string;
+    grupo: string;
 }

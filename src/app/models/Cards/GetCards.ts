@@ -1,13 +1,12 @@
 export interface FormsCards {
-    profile: string;
-    status: string;
-    typeTRX: string;
-    ayuda: string;
-    level: string;
-    type: string;
-    nameModule: string;
-    description: string;
-    url: string;
-    image: string | null; // Puede ser una cadena o nulo
-  }
-  
+  id: string;
+  nombre: string;
+  description: string;
+  ayuda: string;
+  status: string;
+  level: string;
+  fecha: string;
+  grupo: string;
+  url: string;
+  image: string | null; // Puede ser una cadena o nulo
+}

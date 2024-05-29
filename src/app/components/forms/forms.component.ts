@@ -55,58 +55,16 @@ export class FormsComponent implements OnInit {
       formControls[input.tag] = [null, Validators.pattern(input.pattern)];
     }
     this.formularioForm = this.formBuilder.group(formControls);
+
+
   }
 
   inputs = [
     {
-      id: 'icon_telephone',
-      type: 'tel',
-      tag: 'codigoQR',
-      label: 'Codigo QR',
-      icon: 'qr_code',
-      size: 's12',
-      required: true,
-      disabled: false,
-      pattern: '^[a-zA-Z0-9]+$', // regex para permitir solo caracteres alfanuméricos
-    },
-    {
-      id: 'icon_prefix',
-      type: 'text',
-      tag: 'idNit',
-      label: 'Nit',
-      icon: 'input',
-      size: 's6',
-      required: true,
-      disabled: false,
-      pattern: '^[a-zA-Z0-9]+$', // regex para permitir solo números de 3 dígitos
-    },
-    {
-      id: 'icon_prefix',
-      type: 'text',
-      tag: 'documento',
-      label: 'Núm de documento',
-      icon: 'input',
-      size: 's6',
-      required: true,
-      disabled: false,
-      pattern: '^[a-zA-Z0-9]+$', // regex para permitir solo números de 3 dígitos
-    },
-    {
-      id: 'icon_prefix',
-      type: 'text',
-      tag: 'bultos',
-      label: 'Cantidad de bultos',
-      icon: 'input',
-      size: 's6',
-      required: true,
-      disabled: false,
-      pattern: '^[0-9]+$', // regex para permitir solo números de 3 dígitos
-    },
-    {
       id: 'icon_prefix',
       type: 'text',
       tag: 'montoTotal',
-      label: 'Monto Total',
+      label: 'Montos Totales',
       icon: 'input',
       size: 's6',
       required: true,
@@ -123,13 +81,12 @@ export class FormsComponent implements OnInit {
     console.log(this.ingreso);
     var numeroRandom = Math.floor(Math.random() * 9e12) + 1e12;
     console.log(numeroRandom);
-    this.ingreso.usuario = "1";
-    this.ingreso.canalDigital ="KIMBO_PAGE_WEB"
+    this.ingreso.usuario = '1';
+    this.ingreso.canalDigital = 'KIMBO_PAGE_WEB';
     this.ingreso.idTransaccion = numeroRandom.toString();
     this.ingresosServices.newIngreso(this.ingreso).subscribe(
       (data) => {
         // Limpiar la variable forms antes de asignarle los nuevos datos
-
         console.log(data);
 
         // Manejar los datos de los formularios aquí
