@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router'; // Importa RouterModule
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app.routes';
-import { NavBarComponent } from './generated/nav-bar/nav-bar.component';
-import { FormsComponent } from './components/forms/forms.component';
-import { CardsComponent } from './components/menu/cards.component';
-import { HttpClientModule } from '@angular/common/http';
-import { SideBarComponent } from './generated/side-bar/side-bar.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { AppComponent } from "./app.component";
+import { NavBarComponent } from "./generated/nav-bar/nav-bar.component";
+import { SideBarComponent } from "./generated/side-bar/side-bar.component";
+import { FormsComponent } from "./components/forms/forms.component";
+import { CardsComponent } from "./components/menu/cards.component";
+import { BrowserModule } from "@angular/platform-browser";
+import { AppRoutingModule } from "./app.routes";
+import { RouterModule } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [

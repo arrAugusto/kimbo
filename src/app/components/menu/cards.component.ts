@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CardsService } from '../../services/servicesCards/CardsService';
-import { FormsCards } from '../../models/Cards/GetCards';
+import { CardsService } from '../../services/view_kimbo/CardsService';
+import { FormsCards } from '../../models/View_kimbo/GetCards';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 

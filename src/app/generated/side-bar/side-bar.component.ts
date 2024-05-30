@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SideBarService } from '../../services/sidebar/SideBarService';
+import { SideBarService } from '../../services/view_kimbo/SideBarService';
 import { Router } from '@angular/router';
-import { SidebarModel } from '../../models/SideBar/SideBarModels';
+import { SidebarModel } from '../../models/View_kimbo/SideBarModels';
 
 @Component({
   selector: 'app-side-bar',

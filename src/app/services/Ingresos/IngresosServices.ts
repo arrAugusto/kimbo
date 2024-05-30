@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../env/environment';
-import { FormsCards } from '../../models/Cards/GetCards'; // Importa el modelo FormsCards
+import { FormsCards } from '../../models/View_kimbo/GetCards'; // Importa el modelo FormsCards
 import { IngresoBodega } from '../../models/Ingresos/IngresoBodega';
 
 @Injectable({

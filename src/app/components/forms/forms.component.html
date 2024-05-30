@@ -10,23 +10,21 @@
                                 <div class="row">
                                     <div *ngFor="let input of inputs" class="input-field col {{ input.size }}">
                                         <i class="material-icons prefix">{{ input.icon }}</i>
-
-                                        <input [id]="input.id" type="{{ input.type }}" class="validate"  
-
-                                        [formControlName]="input.tag"
-
-                                        [required]="input.required" [disabled]="input.disabled" [pattern]="input.pattern">
-                                        
+                                        <input [id]="input.id" type="{{ input.type }}" class="validate"
+                                            [formControlName]="input.tag" [required]="input.required"
+                                            [disabled]="input.disabled" [pattern]="input.pattern">
                                         <label [for]="input.id">{{ input.label }}</label>
                                     </div>
                                 </div>
                             </form>
+                            
                         </div>
                     </div>
                     <div class="card-action center-align">
-                        <button class="btn waves-effect waves-light" type="submit" (click)="aplicarNewIng()" name="action">Guardar Transacción
+                        <button class="btn waves-effect waves-light" type="submit" (click)="aplicarNewIng()"
+                            name="action">Guardar Transacción
                             <i class="material-icons right">send</i>
-                          </button>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -34,7 +32,3 @@
     </div>
 
 </div>
-
-
-        
-  

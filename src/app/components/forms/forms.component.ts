@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IngresoBodega } from '../../models/Ingresos/IngresoBodega';
+import { InputKimbo } from '../../models/View_kimbo/InputKimbo';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IngresosServices } from '../../services/Ingresos/IngresosServices';
-
+import { ViewFormKimbo } from '../../services/view_kimbo/ViewFormKimbo';
 @Component({
   selector: 'app-forms',
   templateUrl: './forms.component.html',
@@ -12,11 +13,14 @@ import { IngresosServices } from '../../services/Ingresos/IngresosServices';
 export class FormsComponent implements OnInit {
   formularioForm: FormGroup;
   ingreso: IngresoBodega;
+  inputs: InputKimbo[] = [];
+  id: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private ingresosServices: IngresosServices
+    private ingresosServices: IngresosServices,
+    private viewFormKimbo: ViewFormKimbo
   ) {
     this.formularioForm = this.formBuilder.group({});
     // Inicialización del objeto ingreso con valores vacíos
@@ -46,9 +50,9 @@ export class FormsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const id = params['id']; // Aquí obtienes el valor del parámetro 'id'
-      console.log(id); // Haz lo que necesites con el valor del parámetro
+      this.id = params['id'];
     });
+    this.constructorViewForm();
 
     const formControls: { [key: string]: any } = {}; // Definimos un tipo explícito para formControls
     for (const input of this.inputs) {
@@ -56,23 +60,26 @@ export class FormsComponent implements OnInit {
     }
     this.formularioForm = this.formBuilder.group(formControls);
 
-
   }
 
-  inputs = [
-    {
-      id: 'icon_prefix',
-      type: 'text',
-      tag: 'montoTotal',
-      label: 'Montos Totales',
-      icon: 'input',
-      size: 's6',
-      required: true,
-      disabled: false,
-      pattern: '[0-9]+(?:.[0-9]{1,2})?', // regex para permitir números con hasta 2 decimales
-    },
-  ];
+  constructorViewForm() {
+    this.viewFormKimbo.getInputs("56").subscribe(
+      (data) => {
+        // Limpiar la variable forms antes de asignarle los nuevos datos
+        this.inputs = [];
+        this.inputs = data;
 
+        console.log(this.inputs);
+
+        // Manejar los datos de los formularios aquí
+        console.log('Datos de formularios:', data);
+      },
+      (error) => {
+        // Manejar errores aquí
+        console.error('Error al obtener los formularios:', error);
+      }
+    );
+  }
   aplicarNewIng() {
     this.inputs.forEach((element) => {
       this.ingreso[element.tag as keyof IngresoBodega] =
