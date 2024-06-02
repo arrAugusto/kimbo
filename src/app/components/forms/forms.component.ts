@@ -52,33 +52,40 @@ export class FormsComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.id = params['id'];
     });
+
     this.constructorViewForm();
-
-    const formControls: { [key: string]: any } = {}; // Definimos un tipo explícito para formControls
-    for (const input of this.inputs) {
-      formControls[input.tag] = [null, Validators.pattern(input.pattern)];
-    }
-    this.formularioForm = this.formBuilder.group(formControls);
-
   }
 
   constructorViewForm() {
-    this.viewFormKimbo.getInputs("56").subscribe(
+    this.viewFormKimbo.getInputs('56').subscribe(
       (data) => {
+        console.log(data);
+
         // Limpiar la variable forms antes de asignarle los nuevos datos
-        this.inputs = [];
         this.inputs = data;
 
         console.log(this.inputs);
 
         // Manejar los datos de los formularios aquí
         console.log('Datos de formularios:', data);
+
+        this.createFormularioDynamics();
       },
       (error) => {
         // Manejar errores aquí
         console.error('Error al obtener los formularios:', error);
       }
     );
+  }
+
+  createFormularioDynamics() {
+    const formControls: { [key: string]: any } = {}; // Definimos un tipo explícito para formControls
+    console.log(this.inputs);
+
+    for (const input of this.inputs) {
+      formControls[input.tag] = [null, Validators.pattern(input.pattern)];
+    }
+    this.formularioForm = this.formBuilder.group(formControls);
   }
   aplicarNewIng() {
     this.inputs.forEach((element) => {

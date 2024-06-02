@@ -17,9 +17,6 @@ export class SideBarComponent implements OnInit {
     this.sideBarService.getSideBar().subscribe(
       (data) => {
         this.items = data;
-
-        console.log(this.items[1].nombre);
-
         // Manejar los datos de los formularios aquí
         console.log('Datos de formularios:', data);
       },
