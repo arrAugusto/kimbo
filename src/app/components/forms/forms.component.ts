@@ -25,26 +25,39 @@ export class FormsComponent implements OnInit {
     this.formularioForm = this.formBuilder.group({});
     // Inicialización del objeto ingreso con valores vacíos
     this.ingreso = {
-      idTransaccion: '',
-      usuario: '',
-      idNit: '',
-      idImages: '',
-      canalDigital: '',
-      fechaGarita: '',
-      fechaBodega: '',
-      fechaOperativa: '',
-      codigo_transaccion: '',
+      cliente_id: '',
+      usuario_id: '',
+      id_bodega: '',
+      id_transaccion: '',
+      referencia_almacen: '',
+      canal_digital: '',
+      auth_transaction: '',
+      numero_factura: '',
+      estado: '',
+      fecha: '',
+      fecha_operativa: '',
+      bultos: '',
+      valor: '',
+      bl: '',
       documento: '',
       codigoQR: '',
-      bultos: '',
-      montoTotal: '',
+      acta: '',
+      arribo: '',
+      generica_1: '',
+      generica_2: '',
+      generica_3: '',
+      generica_4: '',
+      generica_5: '',
+      generica_6: '',
+      generica_7: '',
+      generica_8: '',
+      codigo_transaccion: '',
+      idImages: '',
       area: '',
-      documento_top_pay: '',
-      document: '',
+      documento_topay: '',
       nombre: '',
       boleta_de_pago: '',
       comments: '',
-      auth_transaction: '',
     };
   }
 
@@ -87,17 +100,21 @@ export class FormsComponent implements OnInit {
     }
     this.formularioForm = this.formBuilder.group(formControls);
   }
+
   aplicarNewIng() {
     this.inputs.forEach((element) => {
       this.ingreso[element.tag as keyof IngresoBodega] =
         this.formularioForm.get(element.tag)?.value;
     });
     console.log(this.ingreso);
-    var numeroRandom = Math.floor(Math.random() * 9e12) + 1e12;
+    var numeroRandom = Math.floor(Math.random() * 1e10);
+
     console.log(numeroRandom);
-    this.ingreso.usuario = '1';
-    this.ingreso.canalDigital = 'KIMBO_PAGE_WEB';
-    this.ingreso.idTransaccion = numeroRandom.toString();
+    this.ingreso.usuario_id = '1';
+    this.ingreso.cliente_id  = "1";
+    this.ingreso.id_bodega = "1";
+    this.ingreso.canal_digital = 'KIMBO_PAGE_WEB';
+    this.ingreso.id_transaccion = numeroRandom.toString();
     this.ingresosServices.newIngreso(this.ingreso).subscribe(
       (data) => {
         // Limpiar la variable forms antes de asignarle los nuevos datos

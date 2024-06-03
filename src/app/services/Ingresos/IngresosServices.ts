@@ -14,7 +14,7 @@ export class IngresosServices {
   newIngreso(ingresoBodega: IngresoBodega): Observable<FormsCards[]> {
     // Pasar el 'id' como parámetro en la solicitud HTTP
     return this.http.post<FormsCards[]>(
-      `${environment.apiUrl}ingresos/crearte_ingreso`,
+      `${environment.apiUrl}actions_store/income_withdrawal`,
       ingresoBodega
     );
   }
