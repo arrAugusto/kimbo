@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IngresoBodega } from '../../models/Ingresos/IngresoBodega';
 import { InputKimbo } from '../../models/View_kimbo/InputKimbo';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IngresosServices } from '../../services/Ingresos/IngresosServices';
 import { ViewFormKimbo } from '../../services/view_kimbo/ViewFormKimbo';
+declare var M: any;
+
 @Component({
   selector: 'app-forms',
   templateUrl: './forms.component.html',
-  styleUrl: './forms.component.css',
+  styleUrls: ['./forms.component.css'],
 })
-export class FormsComponent implements OnInit {
+export class FormsComponent implements OnInit, AfterViewInit {
   formularioForm: FormGroup;
   ingreso: IngresoBodega;
   inputs: InputKimbo[] = [];
   id: string = '';
-
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -23,7 +24,6 @@ export class FormsComponent implements OnInit {
     private viewFormKimbo: ViewFormKimbo
   ) {
     this.formularioForm = this.formBuilder.group({});
-    // Inicialización del objeto ingreso con valores vacíos
     this.ingreso = {
       cliente_id: '',
       usuario_id: '',
@@ -69,30 +69,35 @@ export class FormsComponent implements OnInit {
     this.constructorViewForm();
   }
 
+  ngAfterViewInit() {
+    const elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems, {});
+  }
+
   constructorViewForm() {
     this.viewFormKimbo.getInputs('56').subscribe(
       (data) => {
         console.log(data);
 
-        // Limpiar la variable forms antes de asignarle los nuevos datos
         this.inputs = data;
-
         console.log(this.inputs);
 
-        // Manejar los datos de los formularios aquí
-        console.log('Datos de formularios:', data);
-
         this.createFormularioDynamics();
+
+        // Inicializar selects después de renderizar inputs
+        setTimeout(() => {
+          const elems = document.querySelectorAll('select');
+          M.FormSelect.init(elems, {});
+        }, 0);
       },
       (error) => {
-        // Manejar errores aquí
         console.error('Error al obtener los formularios:', error);
       }
     );
   }
 
   createFormularioDynamics() {
-    const formControls: { [key: string]: any } = {}; // Definimos un tipo explícito para formControls
+    const formControls: { [key: string]: any } = {};
     console.log(this.inputs);
 
     for (const input of this.inputs) {
@@ -117,16 +122,24 @@ export class FormsComponent implements OnInit {
     this.ingreso.id_transaccion = numeroRandom.toString();
     this.ingresosServices.newIngreso(this.ingreso).subscribe(
       (data) => {
-        // Limpiar la variable forms antes de asignarle los nuevos datos
         console.log(data);
-
-        // Manejar los datos de los formularios aquí
         console.log('Datos de formularios:', data);
       },
       (error) => {
-        // Manejar errores aquí
         console.error('Error al obtener los formularios:', error);
       }
     );
   }
+  action_id_client(nameTag: string){
+    this.ingresosServices.getClient(this.formularioForm.get(nameTag)?.value).subscribe(
+      (data) => {
+        console.log(data);
+        console.log('Get NIT:', data);
+      },
+      (error) => {
+        console.error('Error al obtener los formularios:', error);
+      }
+    );
+  }
+
 }
