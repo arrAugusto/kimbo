@@ -1,51 +1,50 @@
 <div class="container">
-    <div class="row">
-      <div class="col s12 offset-s1">
-        <h4 class="header">Ingresos de mercaderías</h4>
-        <div class="card horizontal">
-          <div class="card-stacked center-align">
-            <div class="card-content">
-              <div class="row">
-                <form [formGroup]="formularioForm" class="col s12">
-                  <div class="row">
-                    <div *ngFor="let input of inputs" class="input-field col {{ input.size }}">
+  <div class="row">
+    <div class="col s12 offset-s1">
+      <h4 class="header">Ingresos de mercaderías</h4>
+      <div class="card horizontal">
+        <div class="card-stacked center-align">
+          <div class="card-content">
+            <div class="row">
+              <form [formGroup]="formularioForm" class="col s12">
+                <div class="row">
+                  <div *ngFor="let input of inputs">
+                    <!--Input de formulario-->
+                    <div *ngIf="input.type==='text'" class="input-field col {{ input.size }}">
                       <i class="material-icons prefix">{{ input.icon }}</i>
                       <input *ngIf="input.tag!=='cliente_id'" [id]="input.id" type="{{ input.type }}" class="validate"
-                      [formControlName]="input.tag" [required]="input.required"
-                      [disabled]="input.disabled" [pattern]="input.pattern">
+                        [formControlName]="input.tag" [required]="input.required" [disabled]="input.disabled"
+                        [pattern]="input.pattern">
 
                       <input *ngIf="input.tag==='cliente_id'" [id]="input.id" type="{{ input.type }}" class="validate"
-                      [formControlName]="input.tag" [required]="input.required"
-                      [disabled]="input.disabled" [pattern]="input.pattern"
-                      (change)="action_id_client(input.tag)">
+                        [formControlName]="input.tag" [required]="input.required" [disabled]="input.disabled"
+                        [pattern]="input.pattern" (change)="action_id_client(input.tag)">
 
                       <label [for]="input.id">{{ input.label }}</label>
                     </div>
-<!-- 
-                    <div class="input-field col s12">
+                    <!--Select del formulario-->
+                    <div *ngIf="input.type==='select'" class="input-field col {{ input.size }}">
                       <select #materialSelect>
-                        <option value="" disabled selected>Choose your option</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
+                        <option value="" disabled selected>{{ input.label }}</option>
+                        <option value="1">DPI</option>
+                        <option value="2">NIT</option>
                       </select>
-                      <label>Materialize Select</label>
-                    </div> 
- -->
- 
+                      <label>Seleccione {{ input.label }}</label>
+                    </div>
+
                   </div>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
-            <div class="card-action center-align">
-              <button class="btn waves-effect waves-light" type="submit" (click)="aplicarNewIng()"
-                name="action">Guardar Transacción
-                <i class="material-icons right">send</i>
-              </button>
-            </div>
+          </div>
+          <div class="card-action center-align">
+            <button class="btn waves-effect waves-light" type="submit" (click)="aplicarNewIng()" name="action">Guardar
+              Transacción
+              <i class="material-icons right">send</i>
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
