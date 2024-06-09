@@ -8,13 +8,21 @@ export interface InputKimbo {
   label: string;
   icon: string;
   size: string;
-  required: boolean; // Note: This might be better as a boolean if "TRUE"/"FALSE" are meant to represent true/false
-  disabled: boolean; // Same as above, consider using boolean
+  required: boolean;
+  disabled: boolean;
   pattern: string;
-  visible: string; // Consider boolean
-  read_only: string; // Consider boolean
-  editable: string; // Consider boolean
+  visible: boolean; // Cambiado a boolean
+  read_only: boolean; // Cambiado a boolean
+  editable: boolean; // Cambiado a boolean
   id_icon: string | null;
   type: string | null;
   estado: string;
+  options_view_kimbo: OptionViewKimbo[] | null; // Definiendo la estructura de opciones
+}
+
+interface OptionViewKimbo {
+  id: number;
+  id_view_kimbo: number;
+  valueOption: string;
+  textValue: string;
 }

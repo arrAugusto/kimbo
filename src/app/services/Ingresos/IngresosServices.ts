@@ -17,8 +17,8 @@ export class IngresosServices {
     return this.http.post<FormsCards[]>(`${environment.apiUrl}actions_store/income_withdrawal`, ingresoBodega);
   }
 
-  getClient(nit: string): Observable<Cliente> {
+  getClient(nit: string, tipo_documento: string): Observable<Cliente> {
     // Pass the 'nit' as a parameter in the HTTP request
-    return this.http.get<Cliente>(`${environment.apiUrl}clientes/get_nit/${nit}`);
+    return this.http.get<Cliente>(`${environment.apiUrl}clientes/get_nit/${nit}/${tipo_documento}`);
   }  
 }

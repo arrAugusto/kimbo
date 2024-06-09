@@ -58,6 +58,9 @@ export class FormsComponent implements OnInit, AfterViewInit {
       nombre: '',
       boleta_de_pago: '',
       comments: '',
+      nombre_cliente: '',
+      direccion_cliente: '',
+      tipoDocumento: '',
     };
   }
 
@@ -77,11 +80,10 @@ export class FormsComponent implements OnInit, AfterViewInit {
   constructorViewForm() {
     this.viewFormKimbo.getInputs('56').subscribe(
       (data) => {
-        console.log(data);
-
-        this.inputs = data;
-        console.log(this.inputs);
-
+        // Luego, cuando recibas los datos, puedes asignarlos a this.inputs
+        this.inputs = data as InputKimbo[];
+        console.log(this.inputs[1].options_view_kimbo);
+        
         this.createFormularioDynamics();
 
         // Inicializar selects después de renderizar inputs
@@ -116,8 +118,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
 
     console.log(numeroRandom);
     this.ingreso.usuario_id = '1';
-    this.ingreso.cliente_id  = "1";
-    this.ingreso.id_bodega = "1";
+    this.ingreso.cliente_id = '1';
+    this.ingreso.id_bodega = '1';
     this.ingreso.canal_digital = 'KIMBO_PAGE_WEB';
     this.ingreso.id_transaccion = numeroRandom.toString();
     this.ingresosServices.newIngreso(this.ingreso).subscribe(
@@ -130,16 +132,19 @@ export class FormsComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  action_id_client(nameTag: string){
-    this.ingresosServices.getClient(this.formularioForm.get(nameTag)?.value).subscribe(
-      (data) => {
-        console.log(data);
-        console.log('Get NIT:', data);
-      },
-      (error) => {
-        console.error('Error al obtener los formularios:', error);
-      }
-    );
+  action_id_client() {
+    console.log(this.formularioForm.get('tipoDocumento')?.value);
+    
+    this.ingresosServices
+      .getClient(this.formularioForm.get('cliente_id')?.value, this.formularioForm.get('tipoDocumento')?.value)
+      .subscribe(
+        (data) => {
+          console.log(data);
+          console.log('Get NIT:', data);
+        },
+        (error) => {
+          console.error('Error al obtener los formularios:', error);
+        }
+      );
   }
-
 }

@@ -32,4 +32,7 @@ export interface IngresoBodega {
   nombre: string;
   boleta_de_pago: string;
   comments: string;
+  nombre_cliente: string;
+  direccion_cliente: string;
+  tipoDocumento: string;
 }
