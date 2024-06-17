@@ -18,6 +18,7 @@ export interface InputKimbo {
   type: string | null;
   estado: string;
   options_view_kimbo: OptionViewKimbo[] | null; // Definiendo la estructura de opciones
+  value_default: string;
 }
 
 interface OptionViewKimbo {

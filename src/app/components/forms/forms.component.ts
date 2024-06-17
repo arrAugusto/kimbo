@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IngresoBodega } from '../../models/Ingresos/IngresoBodega';
 import { InputKimbo } from '../../models/View_kimbo/InputKimbo';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IngresosServices } from '../../services/Ingresos/IngresosServices';
 import { ViewFormKimbo } from '../../services/view_kimbo/ViewFormKimbo';
 declare var M: any;
@@ -70,6 +70,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
     });
 
     this.constructorViewForm();
+
   }
 
   ngAfterViewInit() {
@@ -83,12 +84,16 @@ export class FormsComponent implements OnInit, AfterViewInit {
         // Luego, cuando recibas los datos, puedes asignarlos a this.inputs
         this.inputs = data as InputKimbo[];
         console.log(this.inputs[1].options_view_kimbo);
-        
-        this.createFormularioDynamics();
 
+        this.createFormularioDynamics();
         // Inicializar selects después de renderizar inputs
         setTimeout(() => {
           const elems = document.querySelectorAll('select');
+          //this.formularioForm.controls['cliente_id'].disable();
+          for (const input of this.inputs) {
+            if (input.disabled) this.formularioForm.controls[input.tag].disable();
+          }
+
           M.FormSelect.init(elems, {});
         }, 0);
       },
@@ -97,18 +102,36 @@ export class FormsComponent implements OnInit, AfterViewInit {
       }
     );
   }
-
+  disabledInputs(){
+    
+  }
   createFormularioDynamics() {
     const formControls: { [key: string]: any } = {};
     console.log(this.inputs);
 
     for (const input of this.inputs) {
-      formControls[input.tag] = [null, Validators.pattern(input.pattern)];
+      const validators = [];
+      if (input.required) {
+        validators.push(Validators.required);
+      }
+      if (input.pattern) {
+        validators.push(Validators.pattern(input.pattern));
+      }
+      formControls[input.tag] = [null, validators];
     }
+
     this.formularioForm = this.formBuilder.group(formControls);
   }
 
   aplicarNewIng() {
+
+    if (this.formularioForm.invalid) {
+      // Si el formulario no es válido, marca todos los controles como tocados
+      this.markFormGroupTouched(this.formularioForm);
+      console.error('El formulario es inválido. Por favor, revisa los campos.');
+    };
+
+
     this.inputs.forEach((element) => {
       this.ingreso[element.tag as keyof IngresoBodega] =
         this.formularioForm.get(element.tag)?.value;
@@ -132,9 +155,10 @@ export class FormsComponent implements OnInit, AfterViewInit {
       }
     );
   }
+
   action_id_client() {
     console.log(this.formularioForm.get('tipoDocumento')?.value);
-    
+
     this.ingresosServices
       .getClient(this.formularioForm.get('cliente_id')?.value, this.formularioForm.get('tipoDocumento')?.value)
       .subscribe(
@@ -146,5 +170,17 @@ export class FormsComponent implements OnInit, AfterViewInit {
           console.error('Error al obtener los formularios:', error);
         }
       );
+  }
+
+  // Método auxiliar para marcar todos los controles en el FormGroup como tocados
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+      if (control instanceof FormControl) {
+        control.markAsTouched();
+      } else if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 }
