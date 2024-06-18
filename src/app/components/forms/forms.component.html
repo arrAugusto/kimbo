@@ -9,30 +9,27 @@
               <form [formGroup]="formularioForm" class="col s12">
                 <div class="row">
                   <div *ngFor="let input of inputs">
-
-                    <div *ngIf="input.type === 'text'" class="input-field col {{ input.size }}">
+                   
+                    <div *ngIf="input.type === 'text'" class="{{ input.size }} {{ input.visible }}">
                       <i class="material-icons prefix">{{ input.icon }}</i>
-                    
                       <!-- Usamos el atributo value solo si el valor del formulario está vacío -->
                       <input *ngIf="input.tag !== 'cliente_id'" [id]="input.id" type="{{ input.type }}" class="validate"
-                        [formControlName]="input.tag" [required]="input.required" 
-                        [pattern]="input.pattern" [(ngModel)]="input.value_default" [disabled]="true">
-                      
+                        [formControlName]="input.tag" [required]="input.required" [pattern]="input.pattern"
+                        [(ngModel)]="input.value_default">
                       <input *ngIf="input.tag === 'cliente_id'" [id]="input.id" type="{{ input.type }}" class="validate"
-                        [formControlName]="input.tag" [required]="input.required" 
-                        [pattern]="input.pattern" [(ngModel)]="input.value_default" >
-                      
+                        [formControlName]="input.tag" [required]="input.required" [pattern]="input.pattern"
+                        [(ngModel)]="input.value_default">
+
                       <label *ngIf="input.value_default === null" [for]="input.id">{{ input.label }}</label>
-                    
                       <!-- Label de error en rojo -->
-                      <label *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
+                      <label
+                        *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
                         [for]="input.id" class="red-text">
                         {{ input.label }} inválido
                       </label>
                     </div>
-                    
                     <!-- Select del formulario -->
-                    <div *ngIf="input.type === 'select'" class="input-field col {{ input.size }}">
+                    <div *ngIf="input.type === 'select'" class="{{ input.size }} {{ input.visible }}">
                       <select #materialSelect [id]="input.tag" (change)="action_id_client()"
                         [attr.disabled]="input.disabled ? true : null" [formControlName]="input.tag">
                         <option value="" disabled selected>{{ input.label }}</option>
@@ -45,13 +42,9 @@
                         [for]="input.id" class="red-text">
                         {{ input.label }} inválido
                       </label>
-
                     </div>
-
-
-
                     <!--TextArea del formulario-->
-                    <div *ngIf="input.type==='text_area'" class="input-field col {{ input.size }}">
+                    <div *ngIf="input.type==='text_area'" class="{{ input.size }} {{ input.visible }}">
                       <i class="material-icons prefix">{{ input.icon }}</i>
                       <textarea id="icon_prefix2" class="materialize-textarea" [formControlName]="input.tag"></textarea>
                       <label for="icon_prefix2">{{ input.label }}</label>
@@ -63,8 +56,12 @@
                         {{ input.label }} inválido
                       </label>
                     </div>
-
                   </div>
+
+                  <div class="input-field">
+                    <input type="text" class="datepicker" placeholder="Choose a date">
+                  </div>
+                  
                 </div>
               </form>
             </div>

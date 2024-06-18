@@ -76,6 +76,9 @@ export class FormsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     const elems = document.querySelectorAll('select');
     M.FormSelect.init(elems, {});
+
+    const elemsPicker = document.querySelectorAll('.datepicker');
+    M.Datepicker.init(elemsPicker, {});    
   }
 
   constructorViewForm() {

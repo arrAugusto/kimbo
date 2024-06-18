@@ -11,7 +11,7 @@ export interface InputKimbo {
   required: boolean;
   disabled: boolean;
   pattern: string;
-  visible: boolean; // Cambiado a boolean
+  visible: string; // Cambiado a boolean
   read_only: boolean; // Cambiado a boolean
   editable: boolean; // Cambiado a boolean
   id_icon: string | null;
