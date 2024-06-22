@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IngresoBodega } from '../../models/Ingresos/IngresoBodega';
 import { InputKimbo } from '../../models/View_kimbo/InputKimbo';
@@ -13,6 +13,8 @@ declare var M: any;
   styleUrls: ['./forms.component.css'],
 })
 export class FormsComponent implements OnInit, AfterViewInit {
+  @ViewChild('datePicker', { static: false }) datePicker!: ElementRef;
+  @ViewChild('timePicker', { static: false }) timePicker!: ElementRef;
   formularioForm: FormGroup;
   ingreso: IngresoBodega;
   inputs: InputKimbo[] = [];
@@ -77,8 +79,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
     const elems = document.querySelectorAll('select');
     M.FormSelect.init(elems, {});
 
-    const elemsPicker = document.querySelectorAll('.datepicker');
-    M.Datepicker.init(elemsPicker, {});    
+
   }
 
   constructorViewForm() {
@@ -98,6 +99,31 @@ export class FormsComponent implements OnInit, AfterViewInit {
           }
 
           M.FormSelect.init(elems, {});
+
+          if (this.datePicker && this.timePicker) {
+            // Inicialización del datepicker
+            const datepickerInstance = M.Datepicker.init(this.datePicker.nativeElement, {
+              format: 'yyyy-mm-dd',
+              defaultDate: null,
+              autoClose: true
+            });
+      
+            // Inicialización del timepicker
+            const timepickerInstance = M.Timepicker.init(this.timePicker.nativeElement, {
+              twelveHour: true,
+              showClearBtn: true,
+              i18n: {
+                cancel: 'Cancelar',
+                clear: 'Limpiar',
+                done: 'Aceptar'
+              },
+              defaultTime: 'now',
+              autoClose: false,
+              vibrate: true
+            });
+          } else {
+            console.error('Error: Referencias a los pickers no inicializadas correctamente.');
+          }          
         }, 0);
       },
       (error) => {

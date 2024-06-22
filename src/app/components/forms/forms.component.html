@@ -9,7 +9,16 @@
               <form [formGroup]="formularioForm" class="col s12">
                 <div class="row">
                   <div *ngFor="let input of inputs">
-                   
+                    
+                    <div *ngIf="input.type==='date'" class="{{ input.size }} {{ input.visible }}">
+                      <i class="material-icons prefix">{{ input.icon }}</i>
+                      <input type="text" class="datepicker" placeholder="{{ input.label }}" id="date-picker" #datePicker [pattern]="input.pattern">
+                    </div>
+                    <div *ngIf="input.type==='datetime'" class="{{ input.size }} {{ input.visible }}">
+                      <i class="material-icons prefix">{{ input.icon }}</i>
+                      <input type="text" class="timepicker" placeholder="{{ input.label }}" id="time-picker" #timePicker [pattern]="input.pattern">
+                    </div>
+
                     <div *ngIf="input.type === 'text'" class="{{ input.size }} {{ input.visible }}">
                       <i class="material-icons prefix">{{ input.icon }}</i>
                       <!-- Usamos el atributo value solo si el valor del formulario está vacío -->
@@ -36,7 +45,8 @@
                         <option *ngFor="let option of input.options_view_kimbo" [value]="option.textValue">{{
                           option.textValue }}</option>
                       </select>
-                      <label [for]="input.tag">Seleccione {{ input.label }}</label>
+
+                      <label [for]="input.tag"><i class="material-icons left">badge</i> Seleccione {{ input.label }}</label>
                       <label
                         *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
                         [for]="input.id" class="red-text">
@@ -58,10 +68,6 @@
                     </div>
                   </div>
 
-                  <div class="input-field">
-                    <input type="text" class="datepicker" placeholder="Choose a date">
-                  </div>
-                  
                 </div>
               </form>
             </div>
