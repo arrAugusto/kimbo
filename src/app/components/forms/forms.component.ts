@@ -6,6 +6,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { IngresosServices } from '../../services/Ingresos/IngresosServices';
 import { ViewFormKimbo } from '../../services/view_kimbo/ViewFormKimbo';
 declare var M: any;
+import flatpickr from 'flatpickr';
+import { Spanish } from 'flatpickr/dist/l10n/es.js';  // Cambiar a español si es necesario
 
 @Component({
   selector: 'app-forms',
@@ -15,10 +17,12 @@ declare var M: any;
 export class FormsComponent implements OnInit, AfterViewInit {
   @ViewChild('datePicker', { static: false }) datePicker!: ElementRef;
   @ViewChild('timePicker', { static: false }) timePicker!: ElementRef;
+  
   formularioForm: FormGroup;
   ingreso: IngresoBodega;
   inputs: InputKimbo[] = [];
   id: string = '';
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -78,8 +82,6 @@ export class FormsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     const elems = document.querySelectorAll('select');
     M.FormSelect.init(elems, {});
-
-
   }
 
   constructorViewForm() {
@@ -99,31 +101,13 @@ export class FormsComponent implements OnInit, AfterViewInit {
           }
 
           M.FormSelect.init(elems, {});
-
-          if (this.datePicker && this.timePicker) {
-            // Inicialización del datepicker
-            const datepickerInstance = M.Datepicker.init(this.datePicker.nativeElement, {
-              format: 'yyyy-mm-dd',
-              defaultDate: null,
-              autoClose: true
-            });
+          flatpickr('#datetime', {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",  // Usar "H" para horas en formato de 24 horas
+            locale: Spanish,          // Opcional, configurar el idioma a español si es necesario
+            time_24hr: true           // Configurar el formato de 24 horas
+          });
       
-            // Inicialización del timepicker
-            const timepickerInstance = M.Timepicker.init(this.timePicker.nativeElement, {
-              twelveHour: true,
-              showClearBtn: true,
-              i18n: {
-                cancel: 'Cancelar',
-                clear: 'Limpiar',
-                done: 'Aceptar'
-              },
-              defaultTime: 'now',
-              autoClose: false,
-              vibrate: true
-            });
-          } else {
-            console.error('Error: Referencias a los pickers no inicializadas correctamente.');
-          }          
         }, 0);
       },
       (error) => {
@@ -212,4 +196,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
 }
+
+

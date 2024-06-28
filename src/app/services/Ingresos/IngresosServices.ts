@@ -19,6 +19,6 @@ export class IngresosServices {
 
   getClient(nit: string, tipo_documento: string): Observable<Cliente> {
     // Pass the 'nit' as a parameter in the HTTP request
-    return this.http.get<Cliente>(`${environment.apiUrl}clientes/get_nit/${nit}/${tipo_documento}`);
+    return this.http.get<Cliente>(`${environment.apiUrl}clientes/get_nit_validar/${nit}/${tipo_documento}`);
   }  
 }

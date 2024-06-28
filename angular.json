@@ -21,10 +21,13 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "node_modules/materialize-css/dist/css/materialize.min.css",
+              "node_modules/flatpickr/dist/flatpickr.min.css",
               "src/styles.css"
             ],
             "scripts": [
-              "node_modules/materialize-css/dist/js/materialize.min.js"
+              "node_modules/materialize-css/dist/js/materialize.min.js",
+              "node_modules/flatpickr/dist/flatpickr.min.js"
+
             ]
           },
           "configurations": {
