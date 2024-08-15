@@ -12,9 +12,13 @@
                     <!--date formulario-->
                     <div *ngIf="input.type==='date'" class="{{ input.size }} {{ input.visible }}">
                       <i class="material-icons prefix">{{ input.icon }}</i>
-                      <input id="datetime" type="text" readonly placeholder="{{ input.label }}" #datePicker>
+                      <input type="text" class="datepicker" placeholder="{{ input.label }}" id="date-picker" #datePicker [pattern]="input.pattern">
+                    </div>
+                    <!--datetime formulario-->
 
-
+                    <div *ngIf="input.type==='datetime'" class="{{ input.size }} {{ input.visible }}">
+                      <i class="material-icons prefix">{{ input.icon }}</i>
+                      <input type="text" class="timepicker" placeholder="{{ input.label }}" id="time-picker" #timePicker [pattern]="input.pattern">
                     </div>
 
                     <div *ngIf="input.type === 'text'" class="{{ input.size }} {{ input.visible }}">
@@ -65,7 +69,6 @@
                       </label>
                     </div>
                   </div>
-
 
                 </div>
               </form>

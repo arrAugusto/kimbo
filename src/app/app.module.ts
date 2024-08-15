@@ -9,6 +9,9 @@ import { AppRoutingModule } from "./app.routes";
 import { RouterModule } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ThreeJsAnimationComponent } from "./components/threejs-animation/threejs-animation.component";
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     NavBarComponent,
     SideBarComponent,
     FormsComponent,
-    CardsComponent
+    CardsComponent,
+    ThreeJsAnimationComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +29,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     HttpClientModule,
     FormsModule, // Agrega FormsModule si usas formularios template-driven
     ReactiveFormsModule, // Agrega ReactiveFormsModule si usas formularios reactivos
+    NgxSpinnerModule.forRoot()
+
   ],
   providers: [],
   bootstrap: [AppComponent],

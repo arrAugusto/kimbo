@@ -22,6 +22,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
   ingreso: IngresoBodega;
   inputs: InputKimbo[] = [];
   id: string = '';
+  selectedDateTime?: string = '';  // Inicializar con un valor por defecto
 
   constructor(
     private formBuilder: FormBuilder,
@@ -101,13 +102,13 @@ export class FormsComponent implements OnInit, AfterViewInit {
           }
 
           M.FormSelect.init(elems, {});
-          flatpickr('#datetime', {
-            enableTime: true,
-            dateFormat: "Y-m-d H:i",  // Usar "H" para horas en formato de 24 horas
-            locale: Spanish,          // Opcional, configurar el idioma a español si es necesario
-            time_24hr: true           // Configurar el formato de 24 horas
-          });
-      
+    flatpickr('#datetime', {
+      enableTime: true,
+      dateFormat: "Y-m-d H:i",  // Usar "H" para horas en formato de 24 horas
+      locale: Spanish,          // Opcional, configurar el idioma a español si es necesario
+      time_24hr: true           // Configurar el formato de 24 horas
+    });
+
         }, 0);
       },
       (error) => {
