@@ -1,0 +1,110 @@
+.user-view {
+    display: flex;
+    align-items: center;
+}
+
+.user-img {
+    width: 40px; /* Tamaño más pequeño para la imagen */
+    height: 40px;
+    margin-right: 10px; /* Espacio entre la imagen y el nombre */
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.black-name {
+    font-size: 16px; /* Tamaño de la fuente del nombre */
+    color: #000;
+}
+
+.user-view {
+    display: flex;
+    align-items: center;
+}
+
+.user-img {
+    width: 100px; /* Tamaño original de la imagen */
+    height: 100px;
+    transform: scale(0.65); /* Aumenta el tamaño al 75% */
+    margin-right: 10px; /* Espacio entre la imagen y el nombre */
+    border-radius: 50%; /* Asegura que la imagen sea circular */
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.black-name {
+    font-size: 16px; /* Tamaño de la fuente del nombre */
+    color: #000;
+}
+
+
+/* Estilos generales del texto */
+.text-items-sidebar {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #333; /* Color del texto por defecto */
+    font-weight: 500;
+}
+
+/* Estilos para los elementos con hover effect */
+
+/* Estilo para el enlace con el efecto hover */
+.hover-effect-kimbo-sidebar {
+    position: relative;
+    overflow: hidden;
+    background-color: transparent !important; /* Forzar eliminación del fondo gris */
+    transition: color 0.3s ease; /* Suaviza el cambio de color */
+    border-radius: 8px; /* Bordes redondeados de 8px */
+    color: black; /* Color del texto por defecto en estado normal */
+    z-index: 2; /* Asegura que el texto esté por encima del pseudo-elemento */
+}
+
+/* Pseudo-elemento para el efecto de hover */
+.hover-effect-kimbo-sidebar {
+    position: relative;
+    overflow: hidden;
+    background-color: transparent !important; /* Forzar eliminación del fondo gris */
+    transition: color 0.3s ease; /* Suaviza el cambio de color */
+    border-radius: 8px; /* Bordes redondeados de 8px */
+    color: black; /* Color del texto por defecto en estado normal */
+    z-index: 1; /* Asegura que el texto esté por encima del pseudo-elemento */
+}
+
+/* Pseudo-elemento para el efecto de hover */
+.hover-effect-kimbo-sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%; /* Asegura que cubra el ancho completo del contenedor */
+    height: 100%;
+    background-color: rgb(232, 218, 239); /* Color de fondo para el hover */
+    transition: opacity 0.3s ease; /* Suaviza el cambio de opacidad */
+    z-index: -1; /* Detrás del texto */
+    opacity: 0; /* Oculto por defecto */
+    border-radius: 8px; /* Bordes redondeados para el pseudo-elemento */
+}
+
+/* Mostrar el color de fondo en hover */
+.hover-effect-kimbo-sidebar:hover::before {
+    opacity: 1; /* Muestra el color en hover */
+}
+
+.hover-effect-kimbo-sidebar:hover {
+    color: black !important; /* Cambia el color del texto a blanco en hover */
+}
+
+/* Cambiar el color del icono a blanco en hover */
+.hover-effect-kimbo-sidebar:hover .text-color-sidebar {
+    color: black; /* Cambia el color del icono a blanco en hover */
+}
+
+

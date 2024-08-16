@@ -2,15 +2,17 @@
 <ul id="slide-out" class="sidenav sidenav-fixed">
   <li>
     <div class="user-view">
-      <div class="background">
-        <img src="https://t4.ftcdn.net/jpg/03/04/91/41/360_F_304914196_XaD7nPyd1b8tlyLR9iZWV6geFJw6QULn.jpg">
-      </div>
-      <a href="#user"><img class="circle" src="https://cdn-icons-png.flaticon.com/512/2922/2922506.png"></a>
-      <a href="#name"><span class="white-text name">Augusto Gomez</span></a>
-      <a href="#email"><span class="white-text email">Perfil: Admin</span></a>
+      <a href="#user">
+        <img class="circle user-img" src="https://cdn-icons-png.flaticon.com/512/2922/2922506.png" alt="User Image">
+      </a>
+      <a href="#name" class="user-info">
+        <span class="black-name">Augusto Gomez</span>
+      </a>
     </div>
   </li>
-  <li style="cursor: pointer;" *ngFor="let item of items"><a (click)="onClick(item.grupo)"> <i
-        class="Medium material-icons">chevron_right</i>{{
-      item.nombre }}</a></li>
+  <li style="cursor: pointer;" *ngFor="let item of items">
+    <a class="hover-effect-kimbo-sidebar" (click)="onClick(item.grupo)" style="color: black;">
+      <i class="text-color-sidebar Medium material-icons">store</i>{{ item.nombre }}
+    </a>
+  </li>
 </ul>
