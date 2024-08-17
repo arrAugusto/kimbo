@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { SideBarService } from '../../services/view_kimbo/SideBarService';
 import { Router } from '@angular/router';
 import { SidebarModel } from '../../models/View_kimbo/SideBarModels';
@@ -12,6 +12,7 @@ declare var M: any;  // Declara M para que TypeScript reconozca Materialize
 })
 export class SideBarComponent implements OnInit, AfterViewInit {
   items: SidebarModel[] = [];
+  public showSidebar = true;
 
   constructor(private sideBarService: SideBarService, private router: Router) { }
 
@@ -28,6 +29,16 @@ export class SideBarComponent implements OnInit, AfterViewInit {
         console.error('Error al obtener los formularios:', error);
       }
     );
+    this.checkScreenSize();    
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize() {
+    const width = window.innerWidth;
+    this.showSidebar = !(width >= 993 && width <= 1900);
   }
 
   ngAfterViewInit() {
