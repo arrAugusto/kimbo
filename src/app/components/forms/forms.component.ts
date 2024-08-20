@@ -17,7 +17,9 @@ import { Spanish } from 'flatpickr/dist/l10n/es.js';  // Cambiar a español si e
 export class FormsComponent implements OnInit, AfterViewInit {
   @ViewChild('datePicker', { static: false }) datePicker!: ElementRef;
   @ViewChild('timePicker', { static: false }) timePicker!: ElementRef;
-  
+  @ViewChild('datetimePicker') datetimePicker!: ElementRef;
+
+
   formularioForm: FormGroup;
   ingreso: IngresoBodega;
   inputs: InputKimbo[] = [];
@@ -77,12 +79,20 @@ export class FormsComponent implements OnInit, AfterViewInit {
     });
 
     this.constructorViewForm();
-
+    // Inicializa el datepicker después de que el componente esté inicializado
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.datepicker');
+      M.Datepicker.init(elems, {
+        // opciones de configuración del datepicker
+        format: 'yyyy-mm-dd'
+      });
+    });
   }
 
   ngAfterViewInit() {
     const elems = document.querySelectorAll('select');
     M.FormSelect.init(elems, {});
+
   }
 
   constructorViewForm() {
@@ -102,12 +112,24 @@ export class FormsComponent implements OnInit, AfterViewInit {
           }
 
           M.FormSelect.init(elems, {});
-    flatpickr('#datetime', {
-      enableTime: true,
-      dateFormat: "Y-m-d H:i",  // Usar "H" para horas en formato de 24 horas
-      locale: Spanish,          // Opcional, configurar el idioma a español si es necesario
-      time_24hr: true           // Configurar el formato de 24 horas
-    });
+
+          // Inicializar el datepicker
+          if (this.datePicker) {
+            M.Datepicker.init(this.datePicker.nativeElement, {
+              format: 'yyyy-mm-dd'
+              // Opciones adicionales si es necesario
+            });
+          }
+
+          // Inicializar el datetimepicker con flatpickr
+          if (this.datetimePicker) {
+            flatpickr(this.datetimePicker.nativeElement, {
+              enableTime: true,
+              dateFormat: 'Y-m-d H:i:S', // Formato: yyyy-mm-dd hh:mm:ss
+              locale: Spanish,
+              time_24hr: true
+            });
+          }
 
         }, 0);
       },
@@ -116,8 +138,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  disabledInputs(){
-    
+  disabledInputs() {
+
   }
   createFormularioDynamics() {
     const formControls: { [key: string]: any } = {};
