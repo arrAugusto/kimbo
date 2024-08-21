@@ -55,8 +55,8 @@ export class CardsComponent implements OnInit, OnDestroy {
     );
   }
 
-  onButtonClick(id: string) {
-    this.router.navigate(['menu', this.id, 'forms', 'form']).then((e) => {
+  onButtonClick(formulario: string) {
+    this.router.navigate(['menu', this.id, 'forms', formulario]).then((e) => {
       if (e) {
         console.log('Navigation is successful!');
       } else {

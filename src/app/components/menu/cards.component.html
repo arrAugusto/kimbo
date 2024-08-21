@@ -6,14 +6,14 @@
           <div class="card-columns">
             <div class="col s12 m6 l4" *ngFor="let form of forms">
               <div class="card z-depth-2">
-                <div class="card-content mt-custom" (click)="onButtonClick(form.status)">
+                <div class="card-content mt-custom" (click)="onButtonClick(form.formulario)">
                   <div class="card-icon card-super-menu">
-                    <i class="material-icons icon-menu">store</i>
+                    <i class="material-icons icon-menu">{{form.icon}}</i>
                   </div>
                   <div class="card-content mt-custom menu-card">
                     <span class="card-title">{{ form.nombre }}</span>
                     <p>{{ form.ayuda }}</p>
-                    <a class="btn btn-action-menu" (click)="onButtonClick(form.status)">
+                    <a class="btn btn-action-menu" (click)="onButtonClick(form.formulario)">
                       <i class="material-icons">touch_app</i>
                     </a>
                   </div>

@@ -9,4 +9,7 @@ export interface FormsCards {
   grupo: string;
   url: string;
   image: string | null; // Puede ser una cadena o nulo
+  formulario: string;
+  icon: string;
+  
 }

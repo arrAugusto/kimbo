@@ -23,7 +23,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
   formularioForm: FormGroup;
   ingreso: IngresoBodega;
   inputs: InputKimbo[] = [];
-  id: string = '';
+  form: string = '';
   selectedDateTime?: string = '';  // Inicializar con un valor por defecto
 
   constructor(
@@ -75,9 +75,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.id = params['id'];
+      this.form = params['form'];
     });
-
     this.constructorViewForm();
     // Inicializa el datepicker después de que el componente esté inicializado
     document.addEventListener('DOMContentLoaded', function () {
@@ -96,7 +95,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
   }
 
   constructorViewForm() {
-    this.viewFormKimbo.getInputs('56').subscribe(
+    this.viewFormKimbo.getInputs(this.form).subscribe(
       (data) => {
         // Luego, cuando recibas los datos, puedes asignarlos a this.inputs
         this.inputs = data as InputKimbo[];
