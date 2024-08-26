@@ -1,42 +1,60 @@
 :host {
-    display: block;
-    position: relative;
-    background: orange; /* Cambiado a color naranja */
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-touch-callout: none;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  }
-  
-  #wrap {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    overflow: hidden;
-  }
-  
-  #wrap canvas {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 500px;
-    height: 500px;
-    margin: -250px 0 0 -250px;
-    outline: 1px solid #fff;
-  }
-  
-  .info {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    font-size: 12px;
-    color: #ccc;
-    line-height: 2em;
-    text-align: center;
-  }
-  
+  display: block;
+  position: relative;
+  background: transparent; /* Fondo transparente */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  /* No es necesario especificar el tamaño del canvas aquí */
+}
+
+#wrap canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 500px; /* Tamaño del canvas */
+  height: 500px; /* Tamaño del canvas */
+  margin: -250px 0 0 -250px; /* Centra el canvas */
+  outline: none; /* Elimina el contorno */
+}
+
+.info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 12px;
+  color: #ccc;
+  line-height: 2em;
+  text-align: center;
+}
+
+.canvas-container {
+  width: 500px;
+  height: 500px;
+  position: relative;
+}
+
+#wrap canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 500px; /* Tamaño del canvas */
+  height: 500px; /* Tamaño del canvas */
+  margin: -250px 0 0 -250px; /* Centra el canvas */
+  outline: none; /* Elimina el contorno */
+  background: transparent; /* Fondo transparente del canvas */
+}
+

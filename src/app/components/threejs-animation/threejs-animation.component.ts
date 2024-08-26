@@ -17,9 +17,7 @@ export class ThreeJsAnimationComponent implements OnInit {
   private ringcover!: THREE.Mesh;
   private ring!: THREE.Mesh;
 
-  private areawidth = window.innerWidth;
-  private areaheight = window.innerHeight;
-  private canvassize = 500;
+  private canvassize = 250; // Tamaño del canvas
 
   private rotatevalue = 0.035;
   private acceleration = 0;
@@ -34,7 +32,7 @@ export class ThreeJsAnimationComponent implements OnInit {
   }
 
   private initThree(): void {
-    this.camera = new THREE.PerspectiveCamera(65, 1, 1, 10000);
+    this.camera = new THREE.PerspectiveCamera(25, 1, 1, 10000);
     this.camera.position.z = 150;
 
     this.scene = new THREE.Scene();
@@ -74,34 +72,36 @@ export class ThreeJsAnimationComponent implements OnInit {
     this.mesh = new THREE.Mesh(
       new THREE.TubeGeometry(customCurve, 200, 1.1, 2, true),
       new THREE.MeshBasicMaterial({
-        color: 0xffffff
+        color: 0xc39bd3 // Color cambiado aquí
       })
     );
     this.group.add(this.mesh);
 
-    this.ringcover = new THREE.Mesh(new THREE.PlaneGeometry(50, 15, 1), new THREE.MeshBasicMaterial({ color: 0xd1684e, opacity: 0, transparent: true }));
+    this.ringcover = new THREE.Mesh(new THREE.PlaneGeometry(50, 15, 1), new THREE.MeshBasicMaterial({ color: 0x884ea0, opacity: 0, transparent: true }));
     this.ringcover.position.x = customCurve.length + 1;
     this.ringcover.rotation.y = Math.PI / 2;
     this.group.add(this.ringcover);
 
-    this.ring = new THREE.Mesh(new THREE.RingGeometry(4.3, 5.55, 32), new THREE.MeshBasicMaterial({ color: 0xffffff, opacity: 0, transparent: true }));
+    this.ring = new THREE.Mesh(new THREE.RingGeometry(4.3, 5.55, 32), new THREE.MeshBasicMaterial({ color: 0x884ea0, opacity: 0, transparent: true }));
     this.ring.position.x = customCurve.length + 1.1;
     this.ring.rotation.y = Math.PI / 2;
     this.group.add(this.ring);
 
     // Fake shadow
     for (let i = 0; i < 10; i++) {
-      const plain = new THREE.Mesh(new THREE.PlaneGeometry(customCurve.length * 2 + 1, customCurve.radius * 3, 1), new THREE.MeshBasicMaterial({ color: 0xd1684e, transparent: true, opacity: 0.13 }));
+      const plain = new THREE.Mesh(new THREE.PlaneGeometry(customCurve.length * 2 + 1, customCurve.radius * 3, 1), new THREE.MeshBasicMaterial({ color: 0x884ea0, transparent: true, opacity: 0 }));
       plain.position.z = -2.5 + i * 0.5;
       this.group.add(plain);
     }
 
+    // Configuración del renderer
     this.renderer = new THREE.WebGLRenderer({
-      antialias: true
+      antialias: true,
+      alpha: true // Habilita el fondo transparente
     });
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(this.canvassize, this.canvassize);
-    this.renderer.setClearColor('#d1684e');
+    // No se establece el color de fondo para mantener la transparencia
 
     this.canvasContainer.nativeElement.appendChild(this.renderer.domElement);
   }

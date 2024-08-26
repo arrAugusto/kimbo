@@ -1,1 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
+/* Asegúrate de que el contenedor principal use flexbox */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Navbar y sidebar deben tener un tamaño fijo o un tamaño definido */
+app-nav-bar {
+    width: 100%;
+    height: 60px; /* Ajusta según el tamaño de tu navbar */
+}
+
+app-side-bar {
+    width: 250px; /* Ajusta según el tamaño de tu sidebar */
+    height: calc(100vh - 60px); /* Ajusta según el tamaño del navbar */
+    position: fixed; /* Fija el sidebar a la izquierda */
+    top: 60px; /* Alineado con el navbar */
+    left: 0;
+    bottom: 0;
+    transition: transform 0.3s ease; /* Transición suave para el sidebar */
+}
+
+/* Main content debe ocupar el espacio restante */
+.main-content {
+    margin-left: 250px; /* Alineado con el ancho del sidebar */
+    margin-top: 60px; /* Alineado con el tamaño del navbar */
+    flex: 1; /* Ocupa el espacio restante */
+    padding: 20px; /* Espaciado interno opcional */
+    transition: margin-left 0.3s ease; /* Transición suave para el contenido principal */
+}
+
+/* Media query para pantallas menores a 1400px */
+@media (max-width: 1399px) {
+    app-side-bar {
+        display: none; /* Oculta el sidebar */
+    }
+
+    .main-content {
+        margin-left: 0; /* Elimina el margen izquierdo en pantallas más pequeñas */
+    }
+}
+
+/* Media query para pantallas de 1400px o mayores */
+@media (min-width: 1400px) {
+    app-side-bar {
+        display: block; /* Muestra el sidebar */
+    }
+
+    .main-content {
+        margin-left: 250px; /* Reaplica el margen izquierdo para el sidebar */
+    }
+}

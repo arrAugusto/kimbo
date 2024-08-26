@@ -11,7 +11,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ThreeJsAnimationComponent } from "./components/threejs-animation/threejs-animation.component";
 import { NgxSpinnerModule } from 'ngx-spinner';
-
+import { HearLoadingComponent } from './generated/hear-loading/hear-loading.component';  // Ajusta la ruta según sea necesario
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SideBarComponent,
     FormsComponent,
     CardsComponent,
-    ThreeJsAnimationComponent
+    ThreeJsAnimationComponent,
+    HearLoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +31,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FormsModule, // Agrega FormsModule si usas formularios template-driven
     ReactiveFormsModule, // Agrega ReactiveFormsModule si usas formularios reactivos
     NgxSpinnerModule.forRoot()
-
+  ],
+  exports: [
+    ThreeJsAnimationComponent,
+    HearLoadingComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

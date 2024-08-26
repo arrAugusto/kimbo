@@ -8,52 +8,68 @@ import * as THREE from 'three'; // Importando Three.js
 })
 export class HearLoadingComponent implements OnInit {
 
-  @ViewChild('canvas', {static: true}) canvasRef!: ElementRef;
+  @ViewChild('canvas', { static: true }) canvasRef!: ElementRef;
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log("Component initialized");
     this.initializeThreeJS();
   }
 
   initializeThreeJS() {
     const canvas = this.canvasRef.nativeElement;
-    const $wrap = document.getElementById('wrap');
-
-    const areawidth = window.innerWidth;
-    const areaheight = window.innerHeight;
-
     const canvassize = 500;
-
+  
     const length = 30;
     const radius = 5.6;
-
+  
     const rotatevalue = 0.035;
     let acceleration = 0;
     let animatestep = 0;
     let toend = false;
-
+  
     const pi2 = Math.PI * 2;
-
+  
     const group = new THREE.Group();
     let mesh: THREE.Mesh;
-
-    let camera, scene, renderer;
-
+  
+    // Declarar tipos explícitos
+    let camera: THREE.PerspectiveCamera;
+    let scene: THREE.Scene;
+    let renderer: THREE.WebGLRenderer;
+  
     camera = new THREE.PerspectiveCamera(65, 1, 1, 10000);
     camera.position.z = 150;
-
+  
     scene = new THREE.Scene();
     scene.add(group);
-
+  
+    // Crear una curva simple y agregarla al CurvePath
+    const curvePath = new THREE.CurvePath();
+    curvePath.add(new THREE.LineCurve3(
+      new THREE.Vector3(-10, 0, 0),
+      new THREE.Vector3(10, 0, 0)
+    ));
+  
     mesh = new THREE.Mesh(
-      new THREE.TubeGeometry(new THREE.CurvePath(), 200, 1.1, 2, true),
+      new THREE.TubeGeometry(curvePath as any, 200, 1.1, 2, true),
       new THREE.MeshBasicMaterial({
         color: 0xffffff
       })
     );
     group.add(mesh);
-
-    // Resto del código...
+  
+    // Configurar el renderer y el canvas
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+    renderer.setSize(canvassize, canvassize);
+    renderer.setClearColor(0x000000, 0); // Hacer el fondo transparente
+  
+    // Renderizar la escena
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
   }
 }
