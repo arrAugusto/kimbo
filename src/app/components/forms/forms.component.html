@@ -1,77 +1,76 @@
 <div class="container">
-  <div class="row">
-    <div class="col s12 m10 offset-m1">
-      <h4 class="header">Ingresos de mercaderías</h4>
-      <div class="card horizontal">
-        <div class="card-stacked">
-          <div class="card-content">
-            <form [formGroup]="formularioForm">
-              <div class="row">
-                <!-- Loop para generar los inputs dinámicamente -->
-                <div *ngFor="let input of inputs" class="col s12 m6">
+  <h4 class="header">Ingresos de mercaderías</h4>
+  <div class="card horizontal">
+    <div class="card-stacked">
+      <div class="card-content">
+        <form [formGroup]="formularioForm">
+          <div class="row">
+            <!-- Loop para generar los inputs dinámicamente -->
+            <div *ngFor="let input of inputs" class="col-md-6 col-lg-4 mb-3"> <!-- Aquí aplicamos grid de Bootstrap -->
 
-                  <!-- Date formulario -->
-                  <div *ngIf="input.type === 'date'" class="input-field {{ input.visible }}">
-                    <i class="material-icons prefix">{{ input.icon }}</i>
-                    <input type="text" class="datepicker" [id]="input.id" #datePicker [pattern]="input.pattern">
-                    <label for="{{ input.id }}">{{ input.label }}</label>
-                  </div>
-
-                  <!-- Datetime formulario -->
-                  <div *ngIf="input.type === 'datetime'" class="input-field {{ input.visible }}">
-                    <i class="material-icons prefix">{{ input.icon }}</i>
-                    <input type="text" class="datetimepicker" [id]="input.id" #datetimePicker [pattern]="input.pattern">
-                    <label for="{{ input.id }}">{{ input.label }}</label>
-                  </div>
-
-
-                  <!-- Input text formulario -->
-                  <div *ngIf="input.type === 'text'" class="input-field {{ input.visible }}">
-                    <i class="material-icons prefix">{{ input.icon }}</i>
-                    <input [id]="input.id" type="{{ input.type }}" class="validate" [formControlName]="input.tag"
-                      [required]="input.required" [pattern]="input.pattern" [(ngModel)]="input.value_default">
-                    <label *ngIf="input.value_default === null" [for]="input.id">{{ input.label }}</label>
-                    <label
-                      *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
-                      [for]="input.id" class="red-text">{{ input.label }} inválido</label>
-                  </div>
-
-                  <!-- Select del formulario -->
-                  <div *ngIf="input.type === 'select'" class="input-field {{ input.visible }}">
-                    <select [id]="input.id" (change)="action_id_client()" [attr.disabled]="input.disabled ? true : null"
-                      [formControlName]="input.tag">
-                      <option value="" disabled selected>{{ input.label }}</option>
-                      <option *ngFor="let option of input.options_view_kimbo" [value]="option.textValue">{{
-                        option.textValue }}</option>
-                    </select>
-                    <label for="{{ input.id }}">{{ input.label }}</label>
-                    <label
-                      *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
-                      [for]="input.id" class="red-text">{{ input.label }} inválido</label>
-                  </div>
-
-                  <!-- TextArea del formulario -->
-                  <div *ngIf="input.type === 'text_area'" class="input-field {{ input.visible }}">
-                    <i class="material-icons prefix">{{ input.icon }}</i>
-                    <textarea [id]="input.id" class="materialize-textarea" [formControlName]="input.tag"></textarea>
-                    <label for="{{ input.id }}">{{ input.label }}</label>
-                    <label
-                      *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
-                      [for]="input.id" class="red-text">{{ input.label }} inválido</label>
-                  </div>
-
-                </div>
-
+              <!-- Date formulario -->
+              <div *ngIf="input.type === 'date'" class="input-field {{ input.visible }}">
+                <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
+                <input type="text" class="datepicker" [id]="input.id" #datePicker [pattern]="input.pattern">
+                <label for="{{ input.id }}">{{ input.label }}</label>
               </div>
-            </form>
+
+              <!-- Datetime formulario -->
+              <div *ngIf="input.type === 'datetime'" class="input-field {{ input.visible }}">
+                <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
+                <input type="text" class="datetimepicker" [id]="input.id" #datetimePicker [pattern]="input.pattern">
+                <label for="{{ input.id }}">{{ input.label }}</label>
+              </div>
+
+              <!-- Input text formulario -->
+              <div *ngIf="input.type === 'text'" class="input-field {{ input.visible }}">
+                <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
+                <input [id]="input.id" type="{{ input.type }}" class="validate" [formControlName]="input.tag"
+                  [required]="input.required" [pattern]="input.pattern" [(ngModel)]="input.value_default">
+                <label *ngIf="input.value_default === null" [for]="input.id">{{ input.label }}</label>
+                <label
+                  *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
+                  [for]="input.id" class="red-text">{{ input.label }} inválido</label>
+              </div>
+
+              <!-- Select del formulario -->
+              <div *ngIf="input.type === 'select'" class="input-field {{ input.visible }}">
+                <select [id]="input.id" (change)="action_id_client()" [attr.disabled]="input.disabled ? true : null"
+                  [formControlName]="input.tag">
+                  <option value="" disabled selected>Seleccione {{ input.label }}</option>
+                  <option *ngFor="let option of input.options_view_kimbo" [value]="option.textValue">{{
+                    option.textValue }}</option>
+                </select>
+                <label for="{{ input.id }}">{{ input.label }}</label>
+                <label
+                  *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
+                  [for]="input.id" class="red-text">{{ input.label }} inválido</label>
+              </div>
+
+              <!-- TextArea del formulario -->
+              <div *ngIf="input.type === 'text_area'" class="input-field {{ input.visible }}">
+                <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
+                <textarea [id]="input.id" class="materialize-textarea" [formControlName]="input.tag"></textarea>
+                <label for="{{ input.id }}">{{ input.label }}</label>
+                <label
+                  *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
+                  [for]="input.id" class="red-text">{{ input.label }} inválido</label>
+              </div>
+
+            </div>
+
           </div>
-          <div class="card-action center-align">
-            <button class="btn waves-effect waves-light" type="submit" (click)="aplicarNewIng()" name="action">Guardar
-              Transacción
-              <i class="material-icons right">send</i>
-            </button>
-          </div>
-        </div>
+        </form>
+      </div>
+      <div class="card-action center-align">
+        <button class="btn waves-effect waves-light" type="submit" (click)="aplicarNewIng()" name="action">Guardar
+          Transacción
+          <i class="material-symbols-outlined right">send</i>
+        </button>
+      </div>
+      <div>
+      <app-hear-loading></app-hear-loading>
+      <app-three-js-animation></app-three-js-animation>        
       </div>
     </div>
   </div>

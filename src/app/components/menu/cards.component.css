@@ -6,13 +6,13 @@
 }
 
 .card-icon.card-super-menu {
-    background-color: #e91e63;
+    background-color: #9b59b6;
     /* Fondo rojo */
     color: white;
     /* Color del icono dentro del div */
-    width: 25%;
+    width: 80px;
     /* Ancho del 25% del contenedor padre */
-    height: 50%;
+    height: 80px;
     /* Altura ajustada */
     padding: 10px;
     /* Espacio alrededor del icono dentro del div */
@@ -20,7 +20,7 @@
     /* Incluye padding en el cálculo del ancho total */
     position: absolute;
     /* Posiciona el div de manera absoluta respecto al contenedor padre */
-    top: -20px;
+    top: -50px;
     /* Alinea el div para que quede parcialmente fuera del contenedor en la parte superior */
     left: 15px;
     /* Alinea el div con la parte izquierda del contenedor padre */
@@ -28,47 +28,7 @@
     /* Borde redondeado */
 }
 
-.btn-action-menu {
-    border-radius: 50%;
-    /* Hace que el botón sea redondo */
-    width: 44px;
-    /* Ancho del botón */
-    height: 44px;
-    /* Altura del botón */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    /* Asegura que el contenido esté centrado */
-    background-color: #007bff;
-    /* Color de fondo */
-    color: white;
-    /* Color del icono */
-    text-decoration: none;
-    /* Elimina el subrayado */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* Transición suave */
-    position: absolute;
-    /* Posiciona el botón dentro del contenedor */
-    right: 16px;
-    /* Espacio desde el borde derecho */
-    top: 50%;
-    /* Centro vertical */
-    transform: translateY(-50%);
-    /* Ajuste para centrar completamente */
-}
 
-.btn-action-menu i.material-icons {
-    font-size: 24px;
-    /* Tamaño del icono */
-}
-
-.btn-action-menu:hover {
-    background-color: #0056b3;
-    /* Cambio de color al hacer mouseover */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    /* Sombra al hacer mouseover */
-}
 
 .card-menu {
     position: relative;
@@ -92,7 +52,6 @@
 }
 
 .icon-menu {
-    font-family: 'Material Icons';
     /* Asegúrate de tener la fuente Material Icons cargada */
     font-weight: normal;
     font-style: normal;

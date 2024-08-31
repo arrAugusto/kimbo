@@ -159,6 +159,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
   }
 
   aplicarNewIng() {
+    console.log("hola");
+    
 
     if (this.formularioForm.invalid) {
       // Si el formulario no es válido, marca todos los controles como tocados
