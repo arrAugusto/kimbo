@@ -20,16 +20,7 @@ export class HearLoadingComponent implements OnInit {
   initializeThreeJS() {
     const canvas = this.canvasRef.nativeElement;
     const canvassize = 500;
-  
-    const length = 30;
-    const radius = 5.6;
-  
-    const rotatevalue = 0.035;
-    let acceleration = 0;
-    let animatestep = 0;
-    let toend = false;
-  
-    const pi2 = Math.PI * 2;
+ 
   
     const group = new THREE.Group();
     let mesh: THREE.Mesh;
@@ -55,7 +46,6 @@ export class HearLoadingComponent implements OnInit {
     mesh = new THREE.Mesh(
       new THREE.TubeGeometry(curvePath as any, 200, 1.1, 2, true),
       new THREE.MeshBasicMaterial({
-        color: 0xffffff
       })
     );
     group.add(mesh);

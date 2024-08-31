@@ -68,10 +68,14 @@
           <i class="material-symbols-outlined right">send</i>
         </button>
       </div>
-      <div>
-      <app-hear-loading></app-hear-loading>
-      <app-three-js-animation></app-three-js-animation>        
+      <div *ngIf="isLoading" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-light bg-opacity-75 custom-overlay">
+        <div class="text-center">
+          <app-hear-loading></app-hear-loading>
+          <app-three-js-animation></app-three-js-animation>
+        </div>
       </div>
+            
+
     </div>
   </div>
 </div>

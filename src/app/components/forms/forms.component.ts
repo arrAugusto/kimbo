@@ -8,6 +8,7 @@ import { ViewFormKimbo } from '../../services/view_kimbo/ViewFormKimbo';
 declare var M: any;
 import flatpickr from 'flatpickr';
 import { Spanish } from 'flatpickr/dist/l10n/es.js';  // Cambiar a español si es necesario
+import { ThreeJsAnimationComponent } from '../threejs-animation/threejs-animation.component';
 
 @Component({
   selector: 'app-forms',
@@ -18,6 +19,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
   @ViewChild('datePicker', { static: false }) datePicker!: ElementRef;
   @ViewChild('timePicker', { static: false }) timePicker!: ElementRef;
   @ViewChild('datetimePicker') datetimePicker!: ElementRef;
+  @ViewChild(ThreeJsAnimationComponent) triggerLoading!: ThreeJsAnimationComponent; // Asegúrate de usar el selector correcto para obtener la instancia
 
 
   formularioForm: FormGroup;
@@ -25,12 +27,14 @@ export class FormsComponent implements OnInit, AfterViewInit {
   inputs: InputKimbo[] = [];
   form: string = '';
   selectedDateTime?: string = '';  // Inicializar con un valor por defecto
+  isLoading: boolean = false;
+
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private ingresosServices: IngresosServices,
-    private viewFormKimbo: ViewFormKimbo
+    private viewFormKimbo: ViewFormKimbo,
   ) {
     this.formularioForm = this.formBuilder.group({});
     this.ingreso = {
@@ -159,8 +163,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
   }
 
   aplicarNewIng() {
-    console.log("hola");
-    
+    this.isLoading = true;
+    // Usa triggerLoading después de asegurarte de que esté definido
 
     if (this.formularioForm.invalid) {
       // Si el formulario no es válido, marca todos los controles como tocados
@@ -185,12 +189,26 @@ export class FormsComponent implements OnInit, AfterViewInit {
     this.ingresosServices.newIngreso(this.ingreso).subscribe(
       (data) => {
         console.log(data);
+
+        // Activa la animación
+        this.triggerLoading.triggerAnimation(true);
+
+        // Espera medio segundo (500 milisegundos) para que la animación se complete
+        setTimeout(() => {
+
+          // Actualiza la propiedad isLoading para ocultar el componente
+          this.isLoading = false;
+        }, 2000); // Tiempo en milisegundos para coincidir con la duración de la animación
+
+
         console.log('Datos de formularios:', data);
       },
       (error) => {
         console.error('Error al obtener los formularios:', error);
       }
     );
+
+
   }
 
   action_id_client() {
@@ -222,5 +240,4 @@ export class FormsComponent implements OnInit, AfterViewInit {
   }
 
 }
-
 

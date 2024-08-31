@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import * as THREE from 'three';
 
 @Component({
@@ -23,6 +23,7 @@ export class ThreeJsAnimationComponent implements OnInit {
   private acceleration = 0;
   private animatestep = 0;
   private toend = false;
+  private animationActive = false; // Nueva variable booleana
 
   constructor(private ngZone: NgZone) { }
 
@@ -77,12 +78,21 @@ export class ThreeJsAnimationComponent implements OnInit {
     );
     this.group.add(this.mesh);
 
-    this.ringcover = new THREE.Mesh(new THREE.PlaneGeometry(50, 15, 1), new THREE.MeshBasicMaterial({ color: 0x884ea0, opacity: 0, transparent: true }));
+    this.ringcover = new THREE.Mesh(
+      new THREE.PlaneGeometry(50, 15, 1),
+      new THREE.MeshStandardMaterial({
+        color: 0x000000,
+        opacity: 0,
+        transparent: true
+      })
+    );
+    
+
     this.ringcover.position.x = customCurve.length + 1;
     this.ringcover.rotation.y = Math.PI / 2;
     this.group.add(this.ringcover);
 
-    this.ring = new THREE.Mesh(new THREE.RingGeometry(4.3, 5.55, 32), new THREE.MeshBasicMaterial({ color: 0x884ea0, opacity: 0, transparent: true }));
+    this.ring = new THREE.Mesh(new THREE.RingGeometry(4.3, 5.55, 32), new THREE.MeshBasicMaterial({ color: 0x9B59B6, opacity: 0, transparent: true }));
     this.ring.position.x = customCurve.length + 1.1;
     this.ring.rotation.y = Math.PI / 2;
     this.group.add(this.ring);
@@ -107,11 +117,11 @@ export class ThreeJsAnimationComponent implements OnInit {
   }
 
   private start(): void {
-    this.toend = true;
+    this.animationActive = true; // Activar la animación
   }
 
   private back(): void {
-    this.toend = false;
+    this.animationActive = false; // Desactivar la animación
   }
 
   private tilt(percent: number): void {
@@ -121,7 +131,7 @@ export class ThreeJsAnimationComponent implements OnInit {
   private render(): void {
     let progress;
 
-    this.animatestep = Math.max(0, Math.min(240, this.toend ? this.animatestep + 1 : this.animatestep - 4));
+    this.animatestep = Math.max(0, Math.min(240, this.animationActive ? this.animatestep + 1 : this.animatestep - 4));
     this.acceleration = this.easing(this.animatestep, 0, 1, 240);
 
     if (this.acceleration > 0.35) {
@@ -130,7 +140,6 @@ export class ThreeJsAnimationComponent implements OnInit {
       this.group.position.z = 50 * progress;
       progress = Math.max(0, (this.acceleration - 0.97) / 0.03);
 
-      // Casting explícito a MeshBasicMaterial para acceder a la propiedad opacity
       if (this.mesh.material instanceof THREE.MeshBasicMaterial) {
         this.mesh.material.opacity = 1 - progress;
       }
@@ -163,23 +172,8 @@ export class ThreeJsAnimationComponent implements OnInit {
     return c / 2 * ((t -= 2) * t * t + 2) + b;
   }
 
-  @HostListener('window:mousedown')
-  onMouseDown(): void {
-    this.start();
-  }
-
-  @HostListener('window:mouseup')
-  onMouseUp(): void {
-    this.back();
-  }
-
-  @HostListener('window:touchstart')
-  onTouchStart(): void {
-    this.start();
-  }
-
-  @HostListener('window:touchend')
-  onTouchEnd(): void {
-    this.back();
+  // Agrega métodos para activar y desactivar la animación desde fuera del componente
+  public triggerAnimation(active: boolean): void {
+    this.animationActive = active;
   }
 }

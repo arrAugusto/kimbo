@@ -1,0 +1,5 @@
+/* Estilo para ajustar la posición del overlay */
+.custom-overlay {
+    transform: translate(100px, -100px); /* Mueve el overlay 50 px a la derecha y 20 px hacia arriba */
+  }
+  
