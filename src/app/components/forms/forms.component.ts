@@ -10,6 +10,7 @@ import flatpickr from 'flatpickr';
 import { Spanish } from 'flatpickr/dist/l10n/es.js';  // Cambiar a español si es necesario
 import { ThreeJsAnimationComponent } from '../threejs-animation/threejs-animation.component';
 import { ResponseTransaction } from '../../models/View_kimbo/ResponseTransaction';
+import { environment } from '../../env/environment';
 
 @Component({
   selector: 'app-forms',
@@ -208,12 +209,12 @@ export class FormsComponent implements OnInit, AfterViewInit {
           this.formularioForm.reset();
           // Activa la animación
           this.triggerLoading.triggerAnimation(true);
-
           setTimeout(() => {
             // Actualiza la propiedad isLoading para ocultar el componente
             this.isSuccessAlert = true;
 
             this.isLoading = false;
+            this.playSuccessSound();
 
             // Espera un segundo después de ocultar el componente
             setTimeout(() => {
@@ -270,5 +271,9 @@ export class FormsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  playSuccessSound() {
+    const audio = new Audio(environment.urlSuccesSound);
+    audio.play();
+  }
 }
 
