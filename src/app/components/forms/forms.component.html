@@ -4,7 +4,7 @@
     <div class="card-stacked">
       <div class="card-content">
         <form [formGroup]="formularioForm">
-          <div class="row">
+          <div class="row">          
             <!-- Loop para generar los inputs dinámicamente -->
             <div *ngFor="let input of inputs" class="col-md-6 col-lg-4 mb-3"> <!-- Aquí aplicamos grid de Bootstrap -->
 
@@ -58,7 +58,21 @@
               </div>
 
             </div>
-
+            <div class="d-flex justify-content-center" *ngIf="isSuccessAlert">
+              <div id="toast-success" class="toast align-items-center bg-white border-0 mb-4 fade show shadow-sm" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                  <div class="toast-body d-flex align-items-center text-body">
+                    <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                      <svg class="bi" width="20" height="20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                      </svg>
+                    </div>
+                    <div class="ms-3">Transacción exitosa.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
           </div>
         </form>
       </div>

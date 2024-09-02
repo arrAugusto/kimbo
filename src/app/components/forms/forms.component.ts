@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IngresoBodega } from '../../models/Ingresos/IngresoBodega';
 import { InputKimbo } from '../../models/View_kimbo/InputKimbo';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,6 +9,7 @@ declare var M: any;
 import flatpickr from 'flatpickr';
 import { Spanish } from 'flatpickr/dist/l10n/es.js';  // Cambiar a español si es necesario
 import { ThreeJsAnimationComponent } from '../threejs-animation/threejs-animation.component';
+import { ResponseTransaction } from '../../models/View_kimbo/ResponseTransaction';
 
 @Component({
   selector: 'app-forms',
@@ -22,19 +23,23 @@ export class FormsComponent implements OnInit, AfterViewInit {
   @ViewChild(ThreeJsAnimationComponent) triggerLoading!: ThreeJsAnimationComponent; // Asegúrate de usar el selector correcto para obtener la instancia
 
 
+  responseTransaction: ResponseTransaction;
   formularioForm: FormGroup;
   ingreso: IngresoBodega;
   inputs: InputKimbo[] = [];
   form: string = '';
+  id: string = '';
   selectedDateTime?: string = '';  // Inicializar con un valor por defecto
   isLoading: boolean = false;
-
+  isSuccessAlert: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private ingresosServices: IngresosServices,
     private viewFormKimbo: ViewFormKimbo,
+    private router: Router,
+
   ) {
     this.formularioForm = this.formBuilder.group({});
     this.ingreso = {
@@ -75,12 +80,21 @@ export class FormsComponent implements OnInit, AfterViewInit {
       direccion_cliente: '',
       tipoDocumento: '',
     };
+    this.responseTransaction = {
+      codeResponse: '',
+      messageResponse: '',
+      data: [], // Aquí puedes inicializar con datos si es necesario
+      itemsFail: [] // Aquí puedes inicializar con datos si es necesario
+    };
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.form = params['form'];
+      this.id = params['id'];
     });
+
+
     this.constructorViewForm();
     // Inicializa el datepicker después de que el componente esté inicializado
     document.addEventListener('DOMContentLoaded', function () {
@@ -95,7 +109,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     const elems = document.querySelectorAll('select');
     M.FormSelect.init(elems, {});
-
+    M.AutoInit();
   }
 
   constructorViewForm() {
@@ -188,20 +202,37 @@ export class FormsComponent implements OnInit, AfterViewInit {
     this.ingreso.id_transaccion = numeroRandom.toString();
     this.ingresosServices.newIngreso(this.ingreso).subscribe(
       (data) => {
-        console.log(data);
+        this.responseTransaction = data;
+        if (this.responseTransaction.codeResponse === '00') {
+          console.log(data);
+          this.formularioForm.reset();
+          // Activa la animación
+          this.triggerLoading.triggerAnimation(true);
 
-        // Activa la animación
-        this.triggerLoading.triggerAnimation(true);
+          setTimeout(() => {
+            // Actualiza la propiedad isLoading para ocultar el componente
+            this.isSuccessAlert = true;
 
-        // Espera medio segundo (500 milisegundos) para que la animación se complete
-        setTimeout(() => {
+            this.isLoading = false;
 
-          // Actualiza la propiedad isLoading para ocultar el componente
-          this.isLoading = false;
-        }, 2000); // Tiempo en milisegundos para coincidir con la duración de la animación
+            // Espera un segundo después de ocultar el componente
+            setTimeout(() => {
+              // Código a ejecutar después de un segundo
+              console.log('Ejecutando el código adicional después de un segundo');
+              this.isSuccessAlert = false;
+              this.router.navigate(['menu', this.id]);
+
+            }, 3500); // Tiempo en milisegundos para esperar un segundo
+
+          }, 1500); // Tiempo en milisegundos para coincidir con la duración de la animación
 
 
-        console.log('Datos de formularios:', data);
+
+
+
+          console.log('Datos de formularios:', data);
+
+        }
       },
       (error) => {
         console.error('Error al obtener los formularios:', error);

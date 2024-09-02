@@ -5,6 +5,7 @@ import { environment } from '../../env/environment';
 import { FormsCards } from '../../models/View_kimbo/GetCards'; // Importa el modelo FormsCards
 import { IngresoBodega } from '../../models/Ingresos/IngresoBodega';
 import { Cliente } from '../../models/Clientes/Cliente';
+import { ResponseTransaction } from '../../models/View_kimbo/ResponseTransaction';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +13,9 @@ import { Cliente } from '../../models/Clientes/Cliente';
 export class IngresosServices {
   constructor(private http: HttpClient) {}
 
-  newIngreso(ingresoBodega: IngresoBodega): Observable<FormsCards[]> {
+  newIngreso(ingresoBodega: IngresoBodega): Observable<ResponseTransaction> {
     // Pasar el 'id' como parámetro en la solicitud HTTP
-    return this.http.post<FormsCards[]>(`${environment.apiUrl}actions_store/income_withdrawal`, ingresoBodega);
+    return this.http.post<ResponseTransaction>(`${environment.apiUrl}actions_store/income_withdrawal`, ingresoBodega);
   }
 
   getClient(nit: string, tipo_documento: string): Observable<Cliente> {
