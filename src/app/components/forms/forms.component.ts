@@ -161,31 +161,49 @@ export class FormsComponent implements OnInit, AfterViewInit {
   }
   createFormularioDynamics() {
     const formControls: { [key: string]: any } = {};
-    console.log(this.inputs);
-
+    
     for (const input of this.inputs) {
       const validators = [];
+      
+      // Si el campo es requerido, agregamos la validación de required
       if (input.required) {
         validators.push(Validators.required);
       }
+      
+      // Si el campo tiene un patrón definido y no es null, agregamos la validación del patrón
       if (input.pattern) {
         validators.push(Validators.pattern(input.pattern));
       }
+      
+      // Asignamos el control al formulario con sus validaciones
       formControls[input.tag] = [null, validators];
     }
-
+    
+    // Creamos el formulario dinámico con los controles definidos
     this.formularioForm = this.formBuilder.group(formControls);
   }
+  
 
   aplicarNewIng() {
-    this.isLoading = true;
-    // Usa triggerLoading después de asegurarte de que esté definido
 
     if (this.formularioForm.invalid) {
-      // Si el formulario no es válido, marca todos los controles como tocados
+      // Marca todos los controles como tocados
       this.markFormGroupTouched(this.formularioForm);
       console.error('El formulario es inválido. Por favor, revisa los campos.');
-    };
+    
+      // Recorre todos los controles del formulario
+      Object.keys(this.formularioForm.controls).forEach(key => {
+        const controlErrors = this.formularioForm.get(key)?.errors;
+        if (controlErrors != null) {
+          console.error(`El campo '${key}' es inválido. Errores:`, controlErrors);
+        }
+      });
+    
+      return;
+    }
+    
+    // Usa triggerLoading después de asegurarte de que esté definido
+    this.isLoading = true;
 
 
     this.inputs.forEach((element) => {
