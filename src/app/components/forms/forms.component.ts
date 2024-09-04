@@ -204,8 +204,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
     
     // Usa triggerLoading después de asegurarte de que esté definido
     this.isLoading = true;
-
-
+    // Desactivar el formulario al inicializar
+    this.formularioForm.disable();
     this.inputs.forEach((element) => {
       this.ingreso[element.tag as keyof IngresoBodega] =
         this.formularioForm.get(element.tag)?.value;
@@ -224,7 +224,6 @@ export class FormsComponent implements OnInit, AfterViewInit {
         this.responseTransaction = data;
         if (this.responseTransaction.codeResponse === '00') {
           console.log(data);
-          this.formularioForm.reset();
           // Activa la animación
           this.triggerLoading.triggerAnimation(true);
           setTimeout(() => {
@@ -239,17 +238,18 @@ export class FormsComponent implements OnInit, AfterViewInit {
               // Código a ejecutar después de un segundo
               console.log('Ejecutando el código adicional después de un segundo');
               this.isSuccessAlert = false;
+              this.formularioForm.reset();
+
               this.router.navigate(['menu', this.id]);
 
             }, 3500); // Tiempo en milisegundos para esperar un segundo
 
           }, 1500); // Tiempo en milisegundos para coincidir con la duración de la animación
 
-
-
-
-
           console.log('Datos de formularios:', data);
+
+        }else{
+          this.formularioForm.enable();
 
         }
       },
