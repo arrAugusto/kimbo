@@ -33,6 +33,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
   selectedDateTime?: string = '';  // Inicializar con un valor por defecto
   isLoading: boolean = false;
   isSuccessAlert: boolean = false;
+  isErrorAlert: boolean = false
+  messageError?: string = "ERROR DESCONOCIDO";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -161,36 +163,38 @@ export class FormsComponent implements OnInit, AfterViewInit {
   }
   createFormularioDynamics() {
     const formControls: { [key: string]: any } = {};
-    
+
     for (const input of this.inputs) {
       const validators = [];
-      
+
       // Si el campo es requerido, agregamos la validación de required
       if (input.required) {
         validators.push(Validators.required);
       }
-      
+
       // Si el campo tiene un patrón definido y no es null, agregamos la validación del patrón
       if (input.pattern) {
         validators.push(Validators.pattern(input.pattern));
       }
-      
+
       // Asignamos el control al formulario con sus validaciones
       formControls[input.tag] = [null, validators];
     }
-    
+
     // Creamos el formulario dinámico con los controles definidos
     this.formularioForm = this.formBuilder.group(formControls);
   }
-  
+
 
   aplicarNewIng() {
+    this.isErrorAlert = false;
+    this.isSuccessAlert = false;
 
     if (this.formularioForm.invalid) {
       // Marca todos los controles como tocados
       this.markFormGroupTouched(this.formularioForm);
       console.error('El formulario es inválido. Por favor, revisa los campos.');
-    
+
       // Recorre todos los controles del formulario
       Object.keys(this.formularioForm.controls).forEach(key => {
         const controlErrors = this.formularioForm.get(key)?.errors;
@@ -198,10 +202,10 @@ export class FormsComponent implements OnInit, AfterViewInit {
           console.error(`El campo '${key}' es inválido. Errores:`, controlErrors);
         }
       });
-    
+
       return;
     }
-    
+
     // Usa triggerLoading después de asegurarte de que esté definido
     this.isLoading = true;
     // Desactivar el formulario al inicializar
@@ -231,7 +235,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
             this.isSuccessAlert = true;
 
             this.isLoading = false;
-            this.playSuccessSound();
+            this.playSuccessSound(true);
 
             // Espera un segundo después de ocultar el componente
             setTimeout(() => {
@@ -248,9 +252,13 @@ export class FormsComponent implements OnInit, AfterViewInit {
 
           console.log('Datos de formularios:', data);
 
-        }else{
+        } else {
+          this.isLoading = false;
+          this.playSuccessSound(false);
           this.formularioForm.enable();
+          this.isErrorAlert = true;
 
+          this.messageError = this.responseTransaction.codeResponse + ` ` + this.responseTransaction.messageResponse;
         }
       },
       (error) => {
@@ -289,8 +297,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  playSuccessSound() {
-    const audio = new Audio(environment.urlSuccesSound);
+  playSuccessSound(sound: boolean) {
+    const audio = new Audio(sound ? environment.urlSuccesSound : environment.urlSuccesSoundError);
     audio.play();
   }
 }
