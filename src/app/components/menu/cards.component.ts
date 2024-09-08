@@ -19,10 +19,9 @@ export class CardsComponent implements OnInit, OnDestroy {
     private cardsService: CardsService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
-    
     // Obtener el parámetro 'id' de la URL inicialmente
     this.routeSub = this.route.params.subscribe((params) => {
       this.id = params['id'];
@@ -56,12 +55,28 @@ export class CardsComponent implements OnInit, OnDestroy {
   }
 
   onButtonClick(formulario: string) {
-    this.router.navigate(['menu', this.id, 'forms', formulario]).then((e) => {
-      if (e) {
-        console.log('Navigation is successful!');
-      } else {
-        console.log('Navigation has failed!');
-      }
-    });
+    switch (formulario) {
+      case '61'://Ingresos pendientes component personalizado
+        this.router.navigate(['menu', this.id, 'ing_pendientes']).then((e) => {
+          if (e) {
+            console.log('Navigation is successful!');
+          } else {
+            console.log('Navigation has failed!');
+          }
+        });
+
+        break;
+
+      default:
+        this.router.navigate(['menu', this.id, 'forms', formulario]).then((e) => {
+          if (e) {
+            console.log('Navigation is successful!');
+          } else {
+            console.log('Navigation has failed!');
+          }
+        });
+
+        break;
+    }
   }
 }

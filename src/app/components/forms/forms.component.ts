@@ -258,7 +258,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
           this.formularioForm.enable();
           this.isErrorAlert = true;
 
-          this.messageError = this.responseTransaction.codeResponse + ` ` + this.responseTransaction.messageResponse;
+          this.messageError = `Codigo: `+this.responseTransaction.codeResponse + ` Mensaje: ` + this.responseTransaction.messageResponse;
         }
       },
       (error) => {

@@ -22,7 +22,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="d-flex justify-content-center" *ngIf="isErrorAlert">
               <div id="toast-error" class="toast align-items-center border-0 mb-5 fade show shadow-sm" role="alert"
                 aria-live="assertive" aria-atomic="true" style="background-color: #dc3545;">
@@ -39,63 +39,70 @@
                 </div>
               </div>
             </div>
-            
+          </div>
+          <div class="row">
             <!-- Loop para generar los inputs dinámicamente -->
-            <div *ngFor="let input of inputs" class="col-md-6 col-lg-4 mb-3"> <!-- Aquí aplicamos grid de Bootstrap -->
+            <ng-container *ngFor="let input of inputs">
+              <!-- Aplicar clases condicionalmente -->
+              <div [ngClass]="{
+                'col-md-6 col-lg-4 mb-3': input.visible === '1',
+                'hide': input.visible !== '1'
+            }">
+                <!-- Datetime formulario -->
+                <div *ngIf="input.type === 'datetime'" class="input-field">
+                  <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
+                  <input type="text" class="datetimepicker" [id]="input.id" #datetimePicker
+                    formControlName="{{ input.tag }}">
+                  <label for="{{ input.id }}">{{ input.label }}</label>
+                  <label
+                    *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
+                    [for]="input.id" class="red-text">{{ input.label }} inválido</label>
+                </div>
 
-              <!-- Datetime formulario -->
-              <div *ngIf="input.type === 'datetime'" class="input-field {{ input.visible }}">
-                <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
-                <input type="text" class="datetimepicker" [id]="input.id" #datetimePicker
-                  formControlName="{{ input.tag }}">
-                <label for="{{ input.id }}">{{ input.label }}</label>
-                <label
-                  *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
-                  [for]="input.id" class="red-text">{{ input.label }} inválido</label>
+                <!-- Input text formulario -->
+                <div *ngIf="input.type === 'text'" class="input-field">
+                  <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
+                  <input [id]="input.id" type="{{ input.type }}" class="validate" [formControlName]="input.tag"
+                    [required]="input.required" [pattern]="input.pattern" [(ngModel)]="input.value_default"
+                    autocomplete="off">
+                  <label *ngIf="input.value_default === null" [for]="input.id">{{ input.label }}</label>
+                  <label
+                    *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
+                    [for]="input.id" class="red-text">{{ input.label }} inválido</label>
+                </div>
+
+                <!-- Select del formulario -->
+                <div *ngIf="input.type === 'select'" class="input-field">
+                  <select [id]="input.id" (change)="action_id_client()" [attr.disabled]="input.disabled ? true : null"
+                    [formControlName]="input.tag">
+                    <option value="" disabled selected>Seleccione {{ input.label }}</option>
+                    <option *ngFor="let option of input.options_view_kimbo" [value]="option.textValue">{{
+                      option.textValue }}</option>
+                  </select>
+                  <label for="{{ input.id }}"
+                    *ngIf="formularioForm.get(input.tag)?.valid || (formularioForm.get(input.tag)?.pristine && !formularioForm.get(input.tag)?.touched)">{{
+                    input.label }}</label>
+                  <label
+                    *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
+                    [for]="input.id" class="red-text">{{ input.label }} inválido</label>
+                </div>
+
+                <!-- TextArea del formulario -->
+                <div *ngIf="input.type === 'text_area'" class="input-field">
+                  <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
+                  <textarea [id]="input.id" class="materialize-textarea" [formControlName]="input.tag"
+                    autocomplete="off"></textarea>
+                  <label for="{{ input.id }}">{{ input.label }}</label>
+                  <label
+                    *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
+                    [for]="input.id" class="red-text">{{ input.label }} inválido</label>
+                </div>
               </div>
-
-
-              <!-- Input text formulario -->
-              <div *ngIf="input.type === 'text'" class="input-field {{ input.visible }}">
-                <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
-                <input [id]="input.id" type="{{ input.type }}" class="validate" [formControlName]="input.tag"
-                  [required]="input.required" [pattern]="input.pattern" [(ngModel)]="input.value_default" autocomplete="off">
-                <label *ngIf="input.value_default === null" [for]="input.id">{{ input.label }}</label>
-                <label
-                  *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
-                  [for]="input.id" class="red-text">{{ input.label }} inválido</label>
-              </div>
-
-              <!-- Select del formulario -->
-              <div *ngIf="input.type === 'select'" class="input-field {{ input.visible }}">
-                <select [id]="input.id" (change)="action_id_client()" [attr.disabled]="input.disabled ? true : null"
-                  [formControlName]="input.tag">
-                  <option value="" disabled selected>Seleccione {{ input.label }}</option>
-                  <option *ngFor="let option of input.options_view_kimbo" [value]="option.textValue">{{
-                    option.textValue }}</option>
-                </select>
-                <label for="{{ input.id }}"
-                  *ngIf="formularioForm.get(input.tag)?.valid || (formularioForm.get(input.tag)?.pristine && !formularioForm.get(input.tag)?.touched)">{{
-                  input.label }}</label>
-                <label
-                  *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
-                  [for]="input.id" class="red-text">{{ input.label }} inválido</label>
-              </div>
-
-              <!-- TextArea del formulario -->
-              <div *ngIf="input.type === 'text_area'" class="input-field {{ input.visible }}">
-                <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
-                <textarea [id]="input.id" class="materialize-textarea" [formControlName]="input.tag" autocomplete="off"></textarea>
-                <label for="{{ input.id }}">{{ input.label }}</label>
-                <label
-                  *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
-                  [for]="input.id" class="red-text">{{ input.label }} inválido</label>
-              </div>
-
-            </div>
+            </ng-container>
           </div>
         </form>
       </div>
+
       <div class="card-action center-align">
         <button class="btn waves-effect waves-light" type="submit" (click)="aplicarNewIng()" name="action">Guardar
           Transacción
