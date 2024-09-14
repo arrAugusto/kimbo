@@ -13,6 +13,7 @@ import { ThreeJsAnimationComponent } from "./components/threejs-animation/threej
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HearLoadingComponent } from './generated/hear-loading/hear-loading.component';
 import { IngresosPendientesComponent } from "./components/ingresos-pendientes/ingresos-pendientes.component";
+import { DetallesInventarioComponent } from "./components/specific/detalles-inventario/detalles-inventario.component";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { IngresosPendientesComponent } from "./components/ingresos-pendientes/in
     CardsComponent,
     ThreeJsAnimationComponent,
     HearLoadingComponent,
+    DetallesInventarioComponent
   ],
   imports: [
     BrowserModule,
