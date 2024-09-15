@@ -10,7 +10,7 @@ export const routes: Routes = [
   { path: 'menu/:id/forms/:form', component: FormsComponent },
   { path: 'menu/:id', component: CardsComponent },
   { path: 'loading', component: ThreeJsAnimationComponent },
-  { path: 'menu/:id/ing_pendientes', component: IngresosPendientesComponent },
+  { path: 'menu/:id/ing_pendientes/:form/sub_form/:sub_form', component: IngresosPendientesComponent },
   { path: 'detalles', component: DetallesInventarioComponent },
 
 ];

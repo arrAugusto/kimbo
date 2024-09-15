@@ -3,6 +3,7 @@ import { CardsService } from '../../services/view_kimbo/CardsService';
 import { FormsCards } from '../../models/View_kimbo/GetCards';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { constConfig } from '../../env/constantsConfig';
 
 @Component({
   selector: 'app-cards',
@@ -54,10 +55,12 @@ export class CardsComponent implements OnInit, OnDestroy {
     );
   }
 
-  onButtonClick(formulario: string) {
+  onButtonClick(formulario: string, sub_form_two: string) {
+    console.log(sub_form_two);
+    
     switch (formulario) {
-      case '61'://Ingresos pendientes component personalizado
-        this.router.navigate(['menu', this.id, 'ing_pendientes']).then((e) => {
+      case constConfig.URL_TIME_LINE_PENDDING_INCOME://Ingresos pendientes component personalizado
+        this.router.navigate(['menu', this.id, 'ing_pendientes', formulario, 'sub_form', sub_form_two]).then((e) => {
           if (e) {
             console.log('Navigation is successful!');
           } else {

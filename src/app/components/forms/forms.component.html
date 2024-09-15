@@ -65,7 +65,7 @@
                   <input [id]="input.id" type="{{ input.type }}" class="validate" [formControlName]="input.tag"
                     [required]="input.required" [pattern]="input.pattern" [(ngModel)]="input.value_default"
                     autocomplete="off">
-                  <label *ngIf="input.value_default === null" [for]="input.id">{{ input.label }}</label>
+                  <label [for]="input.id">{{ input.label }}</label>
                   <label
                     *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
                     [for]="input.id" class="red-text">{{ input.label }} inválido</label>

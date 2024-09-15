@@ -27,6 +27,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
   responseTransaction: ResponseTransaction;
   formularioForm: FormGroup;
   ingreso: IngresoBodega;
+  id_transaction: string | null = null;  // Inicializado a null
+  total_bultos_transaction: string | null = null;  // Inicializado a null
   inputs: InputKimbo[] = [];
   form: string = '';
   id: string = '';
@@ -96,7 +98,12 @@ export class FormsComponent implements OnInit, AfterViewInit {
       this.form = params['form'];
       this.id = params['id'];
     });
+    this.route.queryParamMap.subscribe(queryParams => {
+      this.id_transaction = queryParams.get('id_transaction');
+      this.total_bultos_transaction = queryParams.get('total_bultos_transaction');
 
+      // Realiza las acciones necesarias con id_transaction aquí
+    });
 
     this.constructorViewForm();
     // Inicializa el datepicker después de que el componente esté inicializado
@@ -129,6 +136,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
           //this.formularioForm.controls['cliente_id'].disable();
           for (const input of this.inputs) {
             if (input.disabled) this.formularioForm.controls[input.tag].disable();
+            M.updateTextFields(); // Inicializa los labels de los inputs
+
           }
 
           M.FormSelect.init(elems, {});
@@ -164,9 +173,22 @@ export class FormsComponent implements OnInit, AfterViewInit {
   createFormularioDynamics() {
     const formControls: { [key: string]: any } = {};
 
+    
     for (const input of this.inputs) {
       const validators = [];
-
+      console.log(input);
+      if (input.tag === 'codigo_transaccion' && this.id_transaction!== null){
+        input.value_default = this.id_transaction;
+      }
+      if (input.tag === 'generica_1' && this.total_bultos_transaction!== null){
+        input.value_default = this.total_bultos_transaction;
+      }
+      if (input.tag === 'bultos' && this.total_bultos_transaction!== null){
+        if (this.total_bultos_transaction==='1'){
+          input.value_default = this.total_bultos_transaction;
+          input.disabled = true;
+        }
+      }
       // Si el campo es requerido, agregamos la validación de required
       if (input.required) {
         validators.push(Validators.required);
