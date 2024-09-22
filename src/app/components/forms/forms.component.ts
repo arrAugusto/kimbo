@@ -84,6 +84,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
       nombre_cliente: '',
       direccion_cliente: '',
       tipoDocumento: '',
+      id_transaccion_foreing: ''
     };
     this.responseTransaction = {
       codeResponse: '',
@@ -176,8 +177,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
     
     for (const input of this.inputs) {
       const validators = [];
-      console.log(input);
-      if (input.tag === 'codigo_transaccion' && this.id_transaction!== null){
+      if (input.tag === 'id_transaccion_foreing' && this.id_transaction!== null){
         input.value_default = this.id_transaction;
       }
       if (input.tag === 'generica_1' && this.total_bultos_transaction!== null){
