@@ -54,10 +54,15 @@
                   <input type="text" class="datetimepicker" [id]="input.id" #datetimePicker
                     formControlName="{{ input.tag }}">
                   <label for="{{ input.id }}">{{ input.label }}</label>
-                  <label
+
+                  <!-- Helper text for error messages -->
+                  <span
                     *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
-                    [for]="input.id" class="red-text">{{ input.label }} inválido</label>
+                    class="helper-text red-text">
+                    {{ input.label }} inválida
+                  </span>
                 </div>
+
 
                 <!-- Input text formulario -->
                 <div *ngIf="input.type === 'text'" class="input-field">
@@ -66,26 +71,35 @@
                     [required]="input.required" [pattern]="input.pattern" [(ngModel)]="input.value_default"
                     autocomplete="off">
                   <label [for]="input.id">{{ input.label }}</label>
-                  <label
+
+                  <!-- Helper text for error messages -->
+                  <span
                     *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
-                    [for]="input.id" class="red-text">{{ input.label }} inválido</label>
+                    class="helper-text red-text">
+                    {{ input.label }} inválido
+                  </span>
                 </div>
+
 
                 <!-- Select del formulario -->
                 <div *ngIf="input.type === 'select'" class="input-field">
                   <select [id]="input.id" (change)="action_id_client()" [attr.disabled]="input.disabled ? true : null"
-                    [formControlName]="input.tag">
+                    [formControlName]="input.tag" class="validate">
                     <option value="" disabled selected>Seleccione {{ input.label }}</option>
-                    <option *ngFor="let option of input.options_view_kimbo" [value]="option.textValue">{{
-                      option.textValue }}</option>
+                    <option *ngFor="let option of input.options_view_kimbo" [value]="option.textValue">
+                      {{ option.textValue }}
+                    </option>
                   </select>
-                  <label for="{{ input.id }}"
-                    *ngIf="formularioForm.get(input.tag)?.valid || (formularioForm.get(input.tag)?.pristine && !formularioForm.get(input.tag)?.touched)">{{
-                    input.label }}</label>
-                  <label
+                  <label [for]="input.id">{{ input.label }}</label>
+
+                  <!-- Helper text for error messages -->
+                  <span
                     *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
-                    [for]="input.id" class="red-text">{{ input.label }} inválido</label>
+                    class="helper-text red-text">
+                    {{ input.label }} inválido
+                  </span>
                 </div>
+
 
                 <!-- TextArea del formulario -->
                 <div *ngIf="input.type === 'text_area'" class="input-field">
@@ -93,10 +107,15 @@
                   <textarea [id]="input.id" class="materialize-textarea" [formControlName]="input.tag"
                     autocomplete="off"></textarea>
                   <label for="{{ input.id }}">{{ input.label }}</label>
-                  <label
+
+                  <!-- Helper text for error messages -->
+                  <span
                     *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
-                    [for]="input.id" class="red-text">{{ input.label }} inválido</label>
+                    class="helper-text red-text">
+                    {{ input.label }} inválido
+                  </span>
                 </div>
+
               </div>
             </ng-container>
           </div>
