@@ -84,7 +84,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
       nombre_cliente: '',
       direccion_cliente: '',
       tipoDocumento: '',
-      id_transaccion_foreing: ''
+      id_transaccion_foreing: '',
+      config_form: ''
     };
     this.responseTransaction = {
       codeResponse: '',

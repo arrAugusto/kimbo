@@ -36,4 +36,5 @@ export interface IngresoBodega {
   direccion_cliente: string;
   tipoDocumento: string;
   id_transaccion_foreing: string;
+  config_form: string;
 }
