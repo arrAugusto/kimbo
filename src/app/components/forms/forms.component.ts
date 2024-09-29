@@ -37,7 +37,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
   isSuccessAlert: boolean = false;
   isErrorAlert: boolean = false
   messageError?: string = "ERROR DESCONOCIDO";
-
+  name_form?: string = "";
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -106,6 +106,12 @@ export class FormsComponent implements OnInit, AfterViewInit {
 
       // Realiza las acciones necesarias con id_transaction aquí
     });
+    // Obtener el estado de navegación directamente desde history.state
+    const state = history.state;
+    if (state) {
+      console.log('Received name_form from history.state:', state['name_form']);
+      this.name_form = state['name_form'];
+    }
 
     this.constructorViewForm();
     // Inicializa el datepicker después de que el componente esté inicializado
@@ -125,7 +131,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
   }
 
   constructorViewForm() {
-    this.viewFormKimbo.getInputs(this.form).subscribe(
+    this.viewFormKimbo.getInputs(this.form, this.id_transaction).subscribe(
       (data) => {
         // Luego, cuando recibas los datos, puedes asignarlos a this.inputs
         this.inputs = data as InputKimbo[];
@@ -175,17 +181,17 @@ export class FormsComponent implements OnInit, AfterViewInit {
   createFormularioDynamics() {
     const formControls: { [key: string]: any } = {};
 
-    
+
     for (const input of this.inputs) {
       const validators = [];
-      if (input.tag === 'id_transaccion_foreing' && this.id_transaction!== null){
+      if (input.tag === 'id_transaccion_foreing' && this.id_transaction !== null) {
         input.value_default = this.id_transaction;
       }
-      if (input.tag === 'generica_1' && this.total_bultos_transaction!== null){
+      if (input.tag === 'generica_1' && this.total_bultos_transaction !== null) {
         input.value_default = this.total_bultos_transaction;
       }
-      if (input.tag === 'bultos' && this.total_bultos_transaction!== null){
-        if (this.total_bultos_transaction==='1'){
+      if (input.tag === 'bultos' && this.total_bultos_transaction !== null) {
+        if (this.total_bultos_transaction === '1') {
           input.value_default = this.total_bultos_transaction;
           input.disabled = true;
         }
@@ -281,7 +287,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
           this.formularioForm.enable();
           this.isErrorAlert = true;
 
-          this.messageError = `Codigo: `+this.responseTransaction.codeResponse + ` Mensaje: ` + this.responseTransaction.messageResponse;
+          this.messageError = `Codigo: ` + this.responseTransaction.codeResponse + ` Mensaje: ` + this.responseTransaction.messageResponse;
         }
       },
       (error) => {

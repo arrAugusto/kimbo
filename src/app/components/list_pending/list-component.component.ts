@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IngresosPendientesComponent } from './ingresos-pendientes.component';
+import { IngresosPendientesComponent } from './list-pending';
 
 describe('IngresosPendientesComponent', () => {
   let component: IngresosPendientesComponent;

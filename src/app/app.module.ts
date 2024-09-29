@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ThreeJsAnimationComponent } from "./components/threejs-animation/threejs-animation.component";
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HearLoadingComponent } from './generated/hear-loading/hear-loading.component';
-import { IngresosPendientesComponent } from "./components/ingresos-pendientes/ingresos-pendientes.component";
+import { IngresosPendientesComponent } from "./components/list_pending/list-pending";
 import { DetallesInventarioComponent } from "./components/specific/detalles-inventario/detalles-inventario.component";
 
 @NgModule({

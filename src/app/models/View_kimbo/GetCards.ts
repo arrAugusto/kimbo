@@ -11,6 +11,7 @@ export interface FormsCards {
   image: string | null; // Puede ser una cadena o nulo
   formulario: string;
   icon: string;
+  visible: string;
   sub_form_two: string;
   sub_form_three: string;
   sub_form_four: string;

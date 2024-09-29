@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CardsService } from '../../services/view_kimbo/CardsService';
 import { FormsCards } from '../../models/View_kimbo/GetCards';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { constConfig } from '../../env/constantsConfig';
 
@@ -55,31 +55,36 @@ export class CardsComponent implements OnInit, OnDestroy {
     );
   }
 
-  onButtonClick(formulario: string, sub_form_two: string) {
-    console.log(sub_form_two);
-    
+  onButtonClick(formulario: string, sub_form_two: string, name_form: string) {
+    // Crear NavigationExtras para pasar el estado
+    const navigationExtras: NavigationExtras = {
+      state: { name_form: name_form }
+    };
+
     switch (formulario) {
-      case constConfig.URL_TIME_LINE_PENDDING_INCOME://Ingresos pendientes component personalizado
-        this.router.navigate(['menu', this.id, 'ing_pendientes', formulario, 'sub_form', sub_form_two]).then((e) => {
+      case constConfig.URL_TIME_LINE_PENDDING_INCOME: // Ingresos pendientes component personalizado
+      case constConfig.UR_PENDDING_LOCATION62: // Ingresos pendientes component personalizado      
+        // Pasa `navigationExtras` como segundo parámetro, no dentro del array de la URL.
+        this.router.navigate(['menu', this.id, 'list_pending', formulario, 'sub_form', sub_form_two], navigationExtras).then((e) => {
           if (e) {
             console.log('Navigation is successful!');
           } else {
             console.log('Navigation has failed!');
           }
         });
-
         break;
 
       default:
-        this.router.navigate(['menu', this.id, 'forms', formulario]).then((e) => {
+        // Navegación con estado
+        this.router.navigate(['menu', this.id, 'forms', formulario], navigationExtras).then((e) => {
           if (e) {
             console.log('Navigation is successful!');
           } else {
             console.log('Navigation has failed!');
           }
         });
-
         break;
     }
   }
+
 }
