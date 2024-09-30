@@ -44,10 +44,7 @@
             <!-- Loop para generar los inputs dinámicamente -->
             <ng-container *ngFor="let input of inputs">
               <!-- Aplicar clases condicionalmente -->
-              <div [ngClass]="{
-                'col-md-6 col-lg-4 mb-3': input.visible === '1',
-                'hide': input.visible !== '1'
-            }">
+              <div [ngClass]="input.size ? input.size : ''" *ngIf="input.visible === '1'">
                 <!-- Datetime formulario -->
                 <div *ngIf="input.type === 'datetime'" class="input-field">
                   <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
@@ -86,7 +83,7 @@
                   <select [id]="input.id" (change)="action_id_client()" [attr.disabled]="input.disabled ? true : null"
                     [formControlName]="input.tag" class="validate">
                     <option value="" disabled selected>Seleccione {{ input.label }}</option>
-                    <option *ngFor="let option of input.options_view_kimbo" [value]="option.textValue">
+                    <option *ngFor="let option of input.options_view_kimbo" [value]="option.valueOption">
                       {{ option.textValue }}
                     </option>
                   </select>

@@ -11,6 +11,7 @@ import { Spanish } from 'flatpickr/dist/l10n/es.js';  // Cambiar a español si e
 import { ThreeJsAnimationComponent } from '../threejs-animation/threejs-animation.component';
 import { ResponseTransaction } from '../../models/View_kimbo/ResponseTransaction';
 import { environment } from '../../env/environment';
+import { getGeoPosition } from '../utils/getGeoPosition';
 
 @Component({
   selector: 'app-forms',
@@ -22,7 +23,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
   @ViewChild('timePicker', { static: false }) timePicker!: ElementRef;
   @ViewChild('datetimePicker') datetimePicker!: ElementRef;
   @ViewChild(ThreeJsAnimationComponent) triggerLoading!: ThreeJsAnimationComponent; // Asegúrate de usar el selector correcto para obtener la instancia
-
+  latitude: number | undefined;
+  longitude: number | undefined;
 
   responseTransaction: ResponseTransaction;
   formularioForm: FormGroup;
@@ -38,6 +40,7 @@ export class FormsComponent implements OnInit, AfterViewInit {
   isErrorAlert: boolean = false
   messageError?: string = "ERROR DESCONOCIDO";
   name_form?: string = "";
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -85,7 +88,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
       direccion_cliente: '',
       tipoDocumento: '',
       id_transaccion_foreing: '',
-      config_form: ''
+      config_form: '',
+      gps_location: ''
     };
     this.responseTransaction = {
       codeResponse: '',
@@ -114,6 +118,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
     }
 
     this.constructorViewForm();
+    this.getLocation();
+
     // Inicializa el datepicker después de que el componente esté inicializado
     document.addEventListener('DOMContentLoaded', function () {
       var elems = document.querySelectorAll('.datepicker');
@@ -136,7 +142,6 @@ export class FormsComponent implements OnInit, AfterViewInit {
         // Luego, cuando recibas los datos, puedes asignarlos a this.inputs
         this.inputs = data as InputKimbo[];
         console.log(this.inputs[1].options_view_kimbo);
-
         this.createFormularioDynamics();
         // Inicializar selects después de renderizar inputs
         setTimeout(() => {
@@ -330,5 +335,40 @@ export class FormsComponent implements OnInit, AfterViewInit {
     const audio = new Audio(sound ? environment.urlSuccesSound : environment.urlSuccesSoundError);
     audio.play();
   }
+
+// Método para obtener la localización y asignar latitud y longitud
+getLocation(): void {
+  getGeoPosition()
+    .then(position => {
+      // Asignar latitud y longitud después de obtener la posición
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      console.log(`Latitud: ${this.latitude}, Longitud: ${this.longitude}`);
+
+      // Llamar a un método adicional para asignar el valor a `input.value_default`
+      // Solo si los inputs ya están disponibles
+      this.updateFormWithLocation();
+    })
+    .catch(error => {
+      console.error('Error obteniendo la localización', error);
+    });
 }
 
+// Método para actualizar el formulario con la ubicación
+updateFormWithLocation(): void {
+  // Verificar que `inputs` ya estén inicializados y que latitude y longitude tengan valores
+  if (this.inputs && this.inputs.length > 0 && this.latitude !== undefined && this.longitude !== undefined) {
+    // Asignar valores predeterminados a los inputs
+    this.inputs.forEach(input => {
+      if (input.tag === 'gps_location') {
+        this.formularioForm.get('gps_location')?.setValue(`${this.latitude}, ${this.longitude}`);
+
+        M.updateTextFields();
+        console.log(`Valor predeterminado del GPS asignado en el formulario: Latitud: ${this.latitude}, Longitud: ${this.longitude}`);
+      }
+    });
+  } else {
+    console.log('Inputs no están listos o latitud/longitud no definidos. No se puede actualizar el valor.');
+  }
+}  
+}

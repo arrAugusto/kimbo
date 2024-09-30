@@ -37,4 +37,5 @@ export interface IngresoBodega {
   tipoDocumento: string;
   id_transaccion_foreing: string;
   config_form: string;
+  gps_location: string;
 }
