@@ -44,8 +44,8 @@
             <!-- Loop para generar los inputs dinámicamente -->
             <ng-container *ngFor="let input of inputs">
               <!-- Aplicar clases condicionalmente -->
-              <div [ngClass]="input.size ? input.size : ''" *ngIf="input.visible === '1'">
-                <!-- Datetime formulario -->
+              <div [ngClass]="input.visible === '1' ? input.size : ' hide'">
+              <!-- Datetime formulario -->
                 <div *ngIf="input.type === 'datetime'" class="input-field">
                   <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
                   <input type="text" class="datetimepicker" [id]="input.id" #datetimePicker
@@ -56,7 +56,7 @@
                   <span
                     *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
                     class="helper-text red-text">
-                    {{ input.label }} inválida
+                    {{ input.label }} no válida, no se permiten caracteres especiales o simbolos
                   </span>
                 </div>
 
@@ -73,7 +73,7 @@
                   <span
                     *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
                     class="helper-text red-text">
-                    {{ input.label }} inválido
+                    {{ input.label }} no válido, no se permiten caracteres especiales o simbolos
                   </span>
                 </div>
 
@@ -93,10 +93,9 @@
                   <span
                     *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
                     class="helper-text red-text">
-                    {{ input.label }} inválido
+                    {{ input.label }} no válido, no se permiten caracteres especiales o simbolos
                   </span>
                 </div>
-
 
                 <!-- TextArea del formulario -->
                 <div *ngIf="input.type === 'text_area'" class="input-field">
@@ -109,7 +108,7 @@
                   <span
                     *ngIf="formularioForm.get(input.tag)?.invalid && (formularioForm.get(input.tag)?.dirty || formularioForm.get(input.tag)?.touched)"
                     class="helper-text red-text">
-                    {{ input.label }} inválido
+                    {{ input.label }} no válido, no se permiten caracteres especiales o simbolos
                   </span>
                 </div>
 

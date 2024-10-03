@@ -12,7 +12,7 @@
   </li>
   <li style="cursor: pointer;" *ngFor="let item of items">
     <a class="hover-effect-kimbo-sidebar" (click)="onClick(item.grupo)" style="color: black;">
-      <i class="text-color-sidebar Medium material-symbols-outlined">add_business</i>{{ item.nombre }}
+      <i class="text-color-sidebar Medium material-symbols-outlined">{{item.icon}}</i>{{ item.nombre }}
     </a>
   </li>
 </ul>

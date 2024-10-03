@@ -5,4 +5,5 @@ export interface SidebarModel {
     description: string;
     paquete: string;
     grupo: string;
+    icon: string;
 }
