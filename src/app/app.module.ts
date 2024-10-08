@@ -14,6 +14,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HearLoadingComponent } from './generated/hear-loading/hear-loading.component';
 import { IngresosPendientesComponent } from "./components/list_pending/list-pending";
 import { DetallesInventarioComponent } from "./components/specific/detalles-inventario/detalles-inventario.component";
+import { FirmasDocsComponent } from "./components/firmas-docs/firmas-docs.component";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { DetallesInventarioComponent } from "./components/specific/detalles-inve
     CardsComponent,
     ThreeJsAnimationComponent,
     HearLoadingComponent,
-    DetallesInventarioComponent
+    DetallesInventarioComponent,
+    FirmasDocsComponent
   ],
   imports: [
     BrowserModule,

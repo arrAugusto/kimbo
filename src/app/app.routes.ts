@@ -5,6 +5,7 @@ import { CardsComponent } from './components/menu/cards.component';
 import { ThreeJsAnimationComponent } from './components/threejs-animation/threejs-animation.component';
 import { IngresosPendientesComponent } from './components/list_pending/list-pending';
 import { DetallesInventarioComponent } from './components/specific/detalles-inventario/detalles-inventario.component';
+import { FirmasDocsComponent } from './components/firmas-docs/firmas-docs.component';
 
 export const routes: Routes = [
   { path: 'menu/:id/forms/:form', component: FormsComponent },
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: 'loading', component: ThreeJsAnimationComponent },
   { path: 'menu/:id/list_pending/:form/sub_form/:sub_form', component: IngresosPendientesComponent },
   { path: 'detalles', component: DetallesInventarioComponent },
+  { path: 'validate', component: FirmasDocsComponent },
 
 ];
 
