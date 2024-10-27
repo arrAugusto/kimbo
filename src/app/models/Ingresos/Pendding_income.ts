@@ -5,4 +5,9 @@ export interface PenddingIncome {
     bultos: number;
     valor: number;
     estado: string;
+
+    usuario: string;
+    estado_transaccion: string;
+    referenciaUnica: string;
+
 }
