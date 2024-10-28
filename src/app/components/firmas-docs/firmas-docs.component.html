@@ -1,15 +1,20 @@
 <div class="container">
-
   <div class="row">
     <div *ngFor="let income of penddingIncomes" class="col-12 col-md-4 mb-4">
 
       <!-- Estructura HTML del Card -->
-      <div class="card horizontal shadow-sm">
+      <div class="card horizontal shadow-sm rounded-3">
         <div class="card-body">
-          <!-- Encabezado de la Transacción -->
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="card-title text-muted mb-0">Transacción de ingreso</h6>
-            <span class="badge-status">{{ income.estado }}</span>
+          <!-- Encabezado de la Transacción con Ícono y Título -->
+          <div class="d-flex justify-content-between align-items-center mb-3 opacity-75">
+            <div class="d-flex align-items-center">
+              <h6 class="text-muted mb-0">Transacción de ingreso</h6>
+            </div>
+
+            <span class="badge pink darken-1 white-text"
+              style="font-size: 0.75em; font-weight: 400; padding: 2px 6px; line-height: 1.5em; display: inline-flex; align-items: center;">
+              {{ income.estado }}
+            </span>
           </div>
 
           <!-- Información del Usuario -->
@@ -21,31 +26,50 @@
           </div>
 
           <!-- Detalles de la Transacción -->
-          <div class="border p-3 mb-4 bg-light rounded transaction-details">
-            <p class="text-success fw-bold mb-1">Transacción protegida por KIMBO</p>
-            <hr class="my-2">
-            <p class="mb-1 text-muted">Número de factura</p>
-            <h6 class="text-primary"># {{ income.numeroFactura }}</h6>
-            <p class="mb-1 text-muted">Fecha Registro</p>
-            <h6 class="text-primary">{{ income.fecha }}</h6>
+          <div class="border p-3 mb-2 bg-light rounded transaction-details"> <!-- Cambiado mb-4 a mb-2 -->
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-muted">Número de factura:</span>
+              <span class="text-primary text-end"># {{ income.numeroFactura }}</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="text-muted">Fecha Registro:</span>
+              <span class="text-primary text-end">{{ income.fecha }}</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="text-muted">Bultos:</span>
+              <span class="text-primary text-end">{{ income.bultos }}</span>
+            </div>
           </div>
 
-          <!-- ID de la Transacción y Botón de Ver Detalles -->
+          <!-- ID de la Transacción -->
           <div class="bg-light p-2 rounded transaction-id mb-3">
             <p class="mb-1 fw-bold text-muted">ID de transacción</p>
-            <p class="fw-bold text-truncate mb-2 text-primary">{{ income.referenciaUnica }}</p>
+            <p class="fw-bold text-truncate mb-2 grey-text text-darken-2" style="font-size: 0.75em;">
+              {{ income.referenciaUnica }}
+            </p>
           </div>
-
+          <!-- Footer para mensaje de protección -->
+          <footer class="text-center mt-3 p-2">
+            <p class="text-success fw-bold mb-0">Transacción protegida por KIMBO</p>
+          </footer>
           <!-- Botón de Firmar Mejorado usando solo clases de Bootstrap -->
           <div class="d-grid gap-2 col-6 mx-auto mt-4">
-            <button class="btn btn-success btn-lg rounded-pill fw-bold">Firmar</button>
+            <button class="btn btn-success btn-lg rounded-pill fw-bold" (click)="onFirmarClick(income.referenciaUnica, income.config_form, income.id_transaccion)">
+              Firmar
+            </button>
           </div>
         </div>
+
+        <div *ngIf="isLoading"
+        class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-light bg-opacity-75 custom-overlay">
+        <div class="text-center">
+          <app-hear-loading></app-hear-loading>
+          <app-three-js-animation></app-three-js-animation>
+        </div>
+      </div>
+
       </div>
 
     </div>
   </div>
-
-
-
 </div>

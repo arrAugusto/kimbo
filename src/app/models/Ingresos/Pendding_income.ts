@@ -9,5 +9,6 @@ export interface PenddingIncome {
     usuario: string;
     estado_transaccion: string;
     referenciaUnica: string;
+    config_form: string;
 
 }
