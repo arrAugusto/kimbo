@@ -15,6 +15,8 @@ import { HearLoadingComponent } from './generated/hear-loading/hear-loading.comp
 import { IngresosPendientesComponent } from "./components/list_pending/list-pending";
 import { DetallesInventarioComponent } from "./components/specific/detalles-inventario/detalles-inventario.component";
 import { FirmasDocsComponent } from "./components/firmas-docs/firmas-docs.component";
+import { LoginComponent } from "./login/login.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { FirmasDocsComponent } from "./components/firmas-docs/firmas-docs.compon
     ThreeJsAnimationComponent,
     HearLoadingComponent,
     DetallesInventarioComponent,
-    FirmasDocsComponent
+    FirmasDocsComponent,
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

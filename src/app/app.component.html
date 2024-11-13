@@ -1,8 +1,14 @@
-<!-- app.component.html -->
-<div class="app-container">
+<!-- Mostrar la estructura general si NO estás en la ruta de login -->
+<div *ngIf="!isLoginRoute()" class="app-container">
     <app-nav-bar></app-nav-bar>
     <app-side-bar></app-side-bar>
     <main class="main-content">
-        <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </main>
-</div>
+  </div>
+  
+  <!-- Mostrar únicamente el login si estás en la ruta de login -->
+  <div *ngIf="isLoginRoute()">
+    <router-outlet></router-outlet>
+  </div>
+  
