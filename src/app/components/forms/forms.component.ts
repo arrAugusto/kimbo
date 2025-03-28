@@ -40,6 +40,8 @@ export class FormsComponent implements OnInit, AfterViewInit {
   isErrorAlert: boolean = false
   messageError?: string = "ERROR DESCONOCIDO";
   name_form?: string = "";
+  selectedFiles: { name: string; type: string; url: string }[] = [];
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -336,39 +338,65 @@ export class FormsComponent implements OnInit, AfterViewInit {
     audio.play();
   }
 
-// Método para obtener la localización y asignar latitud y longitud
-getLocation(): void {
-  getGeoPosition()
-    .then(position => {
-      // Asignar latitud y longitud después de obtener la posición
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      console.log(`Latitud: ${this.latitude}, Longitud: ${this.longitude}`);
+  // Método para obtener la localización y asignar latitud y longitud
+  getLocation(): void {
+    getGeoPosition()
+      .then(position => {
+        // Asignar latitud y longitud después de obtener la posición
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        console.log(`Latitud: ${this.latitude}, Longitud: ${this.longitude}`);
 
-      // Llamar a un método adicional para asignar el valor a `input.value_default`
-      // Solo si los inputs ya están disponibles
-      this.updateFormWithLocation();
-    })
-    .catch(error => {
-      console.error('Error obteniendo la localización', error);
-    });
-}
-
-// Método para actualizar el formulario con la ubicación
-updateFormWithLocation(): void {
-  // Verificar que `inputs` ya estén inicializados y que latitude y longitude tengan valores
-  if (this.inputs && this.inputs.length > 0 && this.latitude !== undefined && this.longitude !== undefined) {
-    // Asignar valores predeterminados a los inputs
-    this.inputs.forEach(input => {
-      if (input.tag === 'gps_location') {
-        this.formularioForm.get('gps_location')?.setValue(`${this.latitude}, ${this.longitude}`);
-
-        M.updateTextFields();
-        console.log(`Valor predeterminado del GPS asignado en el formulario: Latitud: ${this.latitude}, Longitud: ${this.longitude}`);
-      }
-    });
-  } else {
-    console.log('Inputs no están listos o latitud/longitud no definidos. No se puede actualizar el valor.');
+        // Llamar a un método adicional para asignar el valor a `input.value_default`
+        // Solo si los inputs ya están disponibles
+        this.updateFormWithLocation();
+      })
+      .catch(error => {
+        console.error('Error obteniendo la localización', error);
+      });
   }
-}  
+
+  // Método para actualizar el formulario con la ubicación
+  updateFormWithLocation(): void {
+    // Verificar que `inputs` ya estén inicializados y que latitude y longitude tengan valores
+    if (this.inputs && this.inputs.length > 0 && this.latitude !== undefined && this.longitude !== undefined) {
+      // Asignar valores predeterminados a los inputs
+      this.inputs.forEach(input => {
+        if (input.tag === 'gps_location') {
+          this.formularioForm.get('gps_location')?.setValue(`${this.latitude}, ${this.longitude}`);
+
+          M.updateTextFields();
+          console.log(`Valor predeterminado del GPS asignado en el formulario: Latitud: ${this.latitude}, Longitud: ${this.longitude}`);
+        }
+      });
+    } else {
+      console.log('Inputs no están listos o latitud/longitud no definidos. No se puede actualizar el valor.');
+    }
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+  
+    if (input.files) {
+      const files = Array.from(input.files);
+      this.selectedFiles = []; // Limpiar lista anterior
+  
+      files.forEach((file) => {
+        const reader = new FileReader();
+  
+        reader.onload = (e: any) => {
+          this.selectedFiles.push({
+            name: file.name,
+            type: file.type,
+            url: e.target.result, // URL para imágenes o PDFs
+          });
+        };
+  
+        // Leer archivo como DataURL (compatible con imágenes y PDFs)
+        reader.readAsDataURL(file);
+      });
+    }
+  }
+  
+
 }

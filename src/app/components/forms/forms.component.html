@@ -45,7 +45,7 @@
             <ng-container *ngFor="let input of inputs">
               <!-- Aplicar clases condicionalmente -->
               <div [ngClass]="input.visible === '1' ? input.size : ' hide'">
-              <!-- Datetime formulario -->
+                <!-- Datetime formulario -->
                 <div *ngIf="input.type === 'datetime'" class="input-field">
                   <i class="material-symbols-outlined prefix">{{ input.icon }}</i>
                   <input type="text" class="datetimepicker" [id]="input.id" #datetimePicker
@@ -115,6 +115,37 @@
               </div>
             </ng-container>
           </div>
+
+<!-- Zona para adjuntar imágenes o PDFs -->
+<div class="row">
+  <div class="col s12">
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>Adjuntar Archivos</span>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*,application/pdf" multiple>
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" placeholder="Seleccione hasta 15 archivos">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Previsualización de archivos -->
+<div class="row">
+  <div class="col s12">
+    <div *ngFor="let file of selectedFiles" class="preview-item">
+      <img *ngIf="file.type.startsWith('image/')" [src]="file.url" alt="Previsualización de imagen" class="thumbnail">
+      <div *ngIf="file.type === 'application/pdf'" class="pdf-preview">
+        <i class="material-symbols-outlined text-danger fs-2 me-3">picture_as_pdf</i>
+        <p>{{ file.name }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
         </form>
       </div>
 

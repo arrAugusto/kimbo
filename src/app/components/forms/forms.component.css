@@ -4,3 +4,23 @@
   /* Mueve el overlay 50 px a la derecha y 20 px hacia arriba */
 }
 
+
+.thumbnail {
+  width: 100px;
+  height: auto;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.pdf-preview {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.pdf-preview .material-icons {
+  font-size: 48px;
+  color: red;
+  margin-right: 10px;
+}

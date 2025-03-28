@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: 'loading', component: ThreeJsAnimationComponent },                            // Público
   { path: 'menu/:id/list_pending/:form/sub_form/:sub_form', component: IngresosPendientesComponent, canActivate: [AuthGuard] }, // Protegido
   { path: 'detalles', component: DetallesInventarioComponent, canActivate: [AuthGuard] }, // Protegido
-  { path: 'validate', component: FirmasDocsComponent, canActivate: [AuthGuard] },       // Protegido
+  { path: 'menu/:id/validate', component: FirmasDocsComponent, canActivate: [AuthGuard] },       // Protegido
   { path: 'auth_login', component: LoginComponent, canActivate: [NoAuthGuard] },        // Público con guard
   { path: '**', redirectTo: '/auth_login' },                                            // Ruta comodín (404)
 ];

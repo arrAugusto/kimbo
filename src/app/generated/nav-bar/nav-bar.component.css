@@ -1,17 +1,44 @@
 nav.top-nav {
-    height: 110px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-bottom: 1px solid rgba(0,0,0,0.14);
-    background-color: transparent;
-    color: black;
+  height: 110px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  background-color: transparent;
+  color: black;
 }
 
 
 .imgIcon {
-    margin-top: -45px; /* Ajusta este valor según sea necesario para elevar la imagen */
-    width: 65px; height: 70px;
-  }
-  .header{
-    margin-top: 45px;
-  }
+  margin-top: -45px;
+  /* Ajusta este valor según sea necesario para elevar la imagen */
+  width: 65px;
+  height: 70px;
+}
+
+.header {
+  margin-top: 45px;
+}
+
+/* Estilo para centrar el ícono verticalmente y alinearlo a la derecha */
+.rightIcon {
+  position: absolute;
+  top: 50%;
+  right: 16px; /* Ajusta el margen derecho si es necesario */
+  transform: translateY(-50%);
+  cursor: pointer; /* Agregar interacción visual al pasar el mouse */
+}
+
+.large-icon {
+  font-size: 36px; /* Tamaño más grande del ícono */
+  font-variation-settings: 'wght' 700; /* Hace el ícono más grueso */
+  color: #333; /* Color del ícono */
+}
+
+.large-icon:hover {
+  color: #d32f2f; /* Cambia el color al pasar el mouse */
+}
+
+/* Aseguramos que el contenedor padre use position: relative */
+.nav-wrapper {
+  position: relative;
+}

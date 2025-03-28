@@ -3,5 +3,6 @@ export const constConfig = {
     URL_TIME_LINE_PENDDING_INCOME: '61',//timeline pendding income
     UR_PENDDING_LOCATION62: '62',
     UR_PENDDING_DANGER63: '63',
+    UR_SIGNATURE: '64',    
     PAGE_ORIGIN: 'KIMBO_WEB'    
 }
